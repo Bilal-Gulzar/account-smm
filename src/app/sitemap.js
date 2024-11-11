@@ -12,57 +12,84 @@ export default async function sitemap() {
 
     const postEntries = result.map((id) => ({
       url: `${process.env.NEXT_PUBLIC_HOST}/Accounts/${id._id}`,
-      lastModified: new Date(id.updatedAt)
+      lastModified: new Date(id.updatedAt),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+
     }));
 
   return [
     {
       url: process.env.NEXT_PUBLIC_HOST,
       lastModified: new Date("2024-11-01T00:00:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/about`,
       lastModified: new Date("2024-10-30T12:00:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/accountService`,
       lastModified: new Date("2024-11-05T15:00:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/contact`,
       lastModified: new Date("2024-11-02T09:30:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/profile`,
       lastModified: new Date("2024-11-03T18:15:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/search`,
       lastModified: new Date("2024-10-28T11:45:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/wishlist`,
       lastModified: new Date("2024-11-07T14:00:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/cart`,
       lastModified: new Date("2024-10-27T17:00:00Z"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/privacy-policy`,
       lastModified: new Date("2024-10-25T13:30:00Z"),
+      changeFrequency: "yearly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/terms&amp;conditions`,
       lastModified: new Date("2024-11-08T10:00:00Z"),
+      changeFrequency: "yearly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/exchange&amp;return`,
       lastModified: new Date("2024-11-09T16:00:00Z"),
+      changeFrequency: "yearly",
+      priority: 0.8,
     },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/faqs`,
       lastModified: new Date("2024-11-06T08:00:00Z"),
+      changeFrequency: "yearly",
+      priority: 0.8,
     },
     ...postEntries,
   ];
