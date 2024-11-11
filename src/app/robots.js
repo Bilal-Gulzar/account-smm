@@ -5,6 +5,6 @@ export default function robots() {
       allow: "/",
       disallow: ["/admin/*"],
     },
-    sitemap: `${process.env.NEXT_PUBLIC_HOST}/sitemap.xml`,
+    sitemap:`${process.env.NEXT_PUBLIC_HOST}/sitemap.xml`,
   };
 }

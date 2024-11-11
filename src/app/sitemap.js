@@ -50,14 +50,14 @@ export default async function sitemap() {
       url: `${process.env.NEXT_PUBLIC_HOST}/privacy-policy`,
       lastModified: new Date("2024-10-25T13:30:00Z"),
     },
-    {
-      url: `${process.env.NEXT_PUBLIC_HOST}/terms&amp;conditions`,
-      lastModified: new Date("2024-11-08T10:00:00Z"),
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_HOST}/exchange&amp;return`,
-      lastModified: new Date("2024-11-09T16:00:00Z"),
-    },
+    // {
+    //   url: `${process.env.NEXT_PUBLIC_HOST}/terms&amp;conditions`,
+    //   lastModified: new Date("2024-11-08T10:00:00Z"),
+    // },
+    // {
+    //   url: `${process.env.NEXT_PUBLIC_HOST}/exchange&amp;return`,
+    //   lastModified: new Date("2024-11-09T16:00:00Z"),
+    // },
     {
       url: `${process.env.NEXT_PUBLIC_HOST}/faqs`,
       lastModified: new Date("2024-11-06T08:00:00Z"),
