@@ -161,7 +161,7 @@ window.location.reload();
         <div className="relative ml-10 lg:-ml-8">
           <Link href="/">
             <Image
-              src="/smm.png"
+              src="/check.jpg"
               alt="accountsmm"
               width={60}
               height={60}
