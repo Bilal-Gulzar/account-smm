@@ -166,6 +166,8 @@ window.location.reload();
               width={60}
               height={60}
               className="h-auto"
+              // unoptimized
+              priority
             />
           </Link>
         </div>
@@ -206,10 +208,7 @@ window.location.reload();
               </span>
             </Link>
           </div>
-          <div
-            onClick={RefreshButton}
-            className="relative cursor-pointer"
-          >
+          <div onClick={RefreshButton} className="relative cursor-pointer">
             <LiaShoppingBagSolid className="size-[22px] lg:size-[21px]" />
             <span className="absolute w-[15px] text-[10px] -top-1 -right-2 flex justify-center items-center h-[15px] rounded-full bg-black text-white">
               {shoppingCart.length}
