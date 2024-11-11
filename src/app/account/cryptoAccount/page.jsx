@@ -8,6 +8,12 @@ import Pagination from "@/app/component/pagination";
 import OutOfStock from "@/app/component/outOfStock";
 import GraterThanTotalPage from "@/app/component/graterThanTotalPage";
 
+
+export const metadata = {
+  title: "Crypto Account",
+};
+
+
 export const getCryptoAccount = async (page) => {
   // Fetch data from  API
   const res = await fetch(

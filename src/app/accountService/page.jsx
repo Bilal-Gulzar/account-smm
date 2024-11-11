@@ -3,6 +3,11 @@ import React from 'react'
 import Image from 'next/image';
 import { Skeleton } from "@/components/ui/skeleton";
 
+export  const metadata ={
+title: "Service "
+
+}
+
 export const getServiceContent = async () => {
   // Fetch data from external API
   const res = await fetch(

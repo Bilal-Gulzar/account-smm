@@ -1,5 +1,12 @@
 import React from 'react'
 import Image from 'next/image';
+
+export const metadata = {
+
+title:"About"
+
+}
+
 export default function About() {
   return (
     <main className="pt-5 pb-40 overflow-hidden">

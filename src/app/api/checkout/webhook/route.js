@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
-import crypto from 'node:crypto'
+// import mongoose from "mongoose";
+// import crypto from 'node:crypto'
 
-export async function POST(req) {
+// export async function POST(req) {
 
-    try{
-   const data = await req.json()
+//     try{
+//    const data = await req.json()
 
-    }catch(e){
+//     }catch(e){
 
-   return Response.json(e)
+//    return Response.json(e)
 
-    }
-}
+//     }
+// }

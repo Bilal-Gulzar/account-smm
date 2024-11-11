@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { GrEdit } from "react-icons/gr";
 import { useRouter} from "next/navigation";
 import { MdOutlineErrorOutline } from "react-icons/md";

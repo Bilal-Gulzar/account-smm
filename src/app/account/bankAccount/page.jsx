@@ -8,6 +8,11 @@ import Pagination from '@/app/component/pagination';
 import OutOfStock from '@/app/component/outOfStock';
 import GraterThanTotalPage from '@/app/component/graterThanTotalPage';
 
+
+export const  metadata = {
+ title:"Bank Account"
+}
+
 export const getBankAccount = async (page) => {
   // Fetch data from  API
   const res = await fetch(

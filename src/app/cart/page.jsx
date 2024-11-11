@@ -13,7 +13,6 @@ import { ImSpinner8 } from "react-icons/im";
 import { FaMinus } from "react-icons/fa";
 import { Skeleton } from "@/components/ui/skeleton";
 
-
 export default function Cart() {
 const { shoppingCart, subtotal, AddTOCart, DecreaseQuantity,RemoveFromCart } = useAppContext();
 

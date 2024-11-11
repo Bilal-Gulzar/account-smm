@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { RiArrowRightCircleLine } from "react-icons/ri";
 import Accountsetitngnavbar from "@/app/component/accountsetitngnavbar";
 import { Skeleton } from "@/components/ui/skeleton";
 // var jwt = require("jsonwebtoken");
 
 export default function EditAccount() {
-  const router = useRouter();
+  // const router = useRouter();
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

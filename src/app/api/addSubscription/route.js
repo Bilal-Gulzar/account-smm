@@ -1,5 +1,3 @@
-import { errors } from "coinbase-commerce-node";
-
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 

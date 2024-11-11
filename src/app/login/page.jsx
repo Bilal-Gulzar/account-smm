@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { Suspense } from 'react';
 
-export default function Login(){
-    const inputRef1 = useRef(null);
-    const inputRef2 = useRef(null);
+ function Login(){
+  const inputRef1 = useRef(null);
+  const inputRef2 = useRef(null);
   const param = useSearchParams()
   const router =  useRouter() 
   const [userEmail, setUserEmail] = useState("");
@@ -55,7 +56,7 @@ let data = { userEmail };
  },
  body: JSON.stringify(data)
   })
-  .then((res)=>res.json())
+  .then((res)=> res.json())
   .then((data)=>{
     setUserEmail(data.email)
     setIsLoading(false)
@@ -205,6 +206,18 @@ return (
     </div>
   </main>
 );
+}
+
+
+
+
+export default function Searchbar() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <Login />
+    </Suspense>
+  );
 }
 
 

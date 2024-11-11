@@ -1,5 +1,11 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
+
+export const metadata = {
+  title: "Contact",
+};
+
 export default function Contact() {
   return (
     <main className="">
@@ -11,7 +17,7 @@ export default function Contact() {
             </h1>
           </div>
           <div className=" mt-2">
-            <img
+            <Image
               src="/smm.png"
               width={190}
               height={190}

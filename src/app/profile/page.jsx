@@ -1,6 +1,6 @@
 "use client"
 import React, { useState,useEffect } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { GrEdit } from "react-icons/gr";
 import Link from 'next/link';
 import Accountsetitngnavbar from '../component/accountsetitngnavbar';

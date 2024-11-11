@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
-import { FaChevronUp, FaChevronDown, FaS } from "react-icons/fa6";
+import { FaChevronUp, FaChevronDown} from "react-icons/fa6";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { AiOutlinePlus } from "react-icons/ai";
 import toast from "react-hot-toast";

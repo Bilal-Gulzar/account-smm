@@ -5,7 +5,7 @@ export default function SkeletonForProductPage() {
   return (
       <div className="grid md:grid-cols-2  gap-5 lg:gap-0 xl:gap-7 lg:container lg:mx-auto">
         <div className="px-1 sm:px-3">
-          <Skeleton className="w-full h-96 xl:h-full" />
+          <Skeleton className="w-full lg:w-[90%]  h-96 xl:h-full" />
         </div>
         <div className="">
           <Skeleton className="w-44 h-5 mb-1" />

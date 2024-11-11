@@ -1,5 +1,9 @@
 import React from 'react'
 
+
+export const metadata = {
+  title: "Exchange & Return ",
+};
 export default function ExhangeAndReturn() {
   return (
     <main className="max-w-[710px] pb-28 mx-auto">

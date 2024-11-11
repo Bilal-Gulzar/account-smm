@@ -1,6 +1,9 @@
 import React from 'react'
 import Link from 'next/link';
 
+export const metadata = {
+  title: "Not-found ",
+};
 export default function NotFound() {
   return (
     <mian className="min-w-screen min-h-screen  flex justify-center items-center">

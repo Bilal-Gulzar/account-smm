@@ -8,6 +8,13 @@ import OutOfStock from "@/app/component/outOfStock";
 import Pagination from "@/app/component/pagination";
 import GraterThanTotalPage from "@/app/component/graterThanTotalPage";
 
+
+export const metadata = {
+  title: "Crypto Currencise",
+};
+
+
+
 export const getCryptoCurrencise = async (page) => {
   // Fetch data from  API
   const res = await fetch(
