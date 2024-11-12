@@ -28,6 +28,9 @@ export const metadata = {
     template: "%s - Buy verified account & Buy Payment Gateway on Accountsmm ",
   },
   description: "Buy Exchanges & Buy Payment Gateways verified | Accountsmm",
+  other: {
+    cryptomus: "7544e10e", // Adding custom meta tag here
+  },
   keywords: [
     "verified accounts",
     "buy accounts online",
