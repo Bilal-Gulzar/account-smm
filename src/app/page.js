@@ -27,7 +27,6 @@ useEffect(()=>{
     
 },[])
 
-
   const fetchImages = async () => {
     try {
       const res = await fetch("/api/homeMainImges");

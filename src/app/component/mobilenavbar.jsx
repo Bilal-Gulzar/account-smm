@@ -10,13 +10,12 @@ export default function Mobilenavbar({path}) {
   const { wishlist } = useAppContext(); 
 const [istoken,setIstoken] = useState(null)
   const {setMenu} = path 
-
   useEffect(()=>{
-  if(typeof window !== "undefined"){
-let token =  localStorage.getItem("token"); 
-if(token){
+    if(typeof window !== "undefined"){
+      let token =  localStorage.getItem("token"); 
+   if(token !== null){
 
-setIstoken(true)
+ setIstoken(true)
 
 }else{
 setIstoken(false);
@@ -28,7 +27,7 @@ setIstoken(false);
 
   return (
     <section>
-      <div className="lg:hidden flex justify-around   items-center w-screen left-0 right-0 bg-white fixed bottom-0  shadow-lg text-xs font-medium h-14">
+      <div className="lg:hidden flex justify-around items-center w-screen left-0 right-0 bg-white fixed bottom-0  shadow-lg text-xs font-medium h-14">
         <div
           onClick={() => setMenu(true)}
           className="flex flex-col items-center"

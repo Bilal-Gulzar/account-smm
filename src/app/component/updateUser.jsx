@@ -82,7 +82,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
         <div
           className={`fixed right-0 ${
             editProfile ? "flex" : " translate-y-full "
-          } justify-center left-0 top-0  backdrop-blur-sm bg-[#666666]/80 w-full h-full items-end md:items-center`}
+          } justify-center left-0 top-0 z-50  backdrop-blur-sm bg-[#666666]/80 w-full h-full items-end md:items-center`}
         >
           <div
             className={`${

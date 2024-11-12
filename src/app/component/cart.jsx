@@ -181,7 +181,7 @@ RemoveFromCart(v)
                   </div>
                 ))}
               </div>
-              <div className="absolute bottom-12 h-[255px] w-full z-50 shadow-inner-top-sm  bg-white px-5 flex flex-col gap-5">
+              <div className="absolute bottom-12 h-[265px] w-full z-50 shadow-inner-top-sm  bg-white px-5 flex flex-col gap-5">
                 <div className="flex  pt-2 font-semibold justify-between">
                   <p>Subtotal:</p>
                   <p>${subtotal}</p>

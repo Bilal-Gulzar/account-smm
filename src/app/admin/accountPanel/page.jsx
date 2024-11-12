@@ -2,20 +2,20 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { RiArrowRightCircleLine } from "react-icons/ri";
 import Accountsetitngnavbar from "@/app/component/accountsetitngnavbar";
 import { Skeleton } from "@/components/ui/skeleton";
-// var jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 
 export default function EditAccount() {
-  // const router = useRouter();
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
  
   useEffect(() => {
-      //  fetchingData();
+      Next_Auth()
        fetch("/api/accountcategories").then((res) => {
          res
            .json()
@@ -30,33 +30,35 @@ export default function EditAccount() {
     fetch("/api/Accounts")
       .then((resp) => resp.json())
       .then((result) => {
+        if(result && result.length> 0 ){
         setData(result.reverse());
       setIsLoading(false);
-
+      }
       });
 
-
-
-    // if (typeof window !== "undefined") {
-    //   if (localStorage.getItem("token")) {
-    //     let jwtToken = localStorage.getItem("token");
-    //     let decode = jwt.decode(jwtToken);
-    //     let email = decode.email;
-
-    //     fetch("/api/isAdmin?mail=" + email)
-    //       .then((res) => res.json())
-    //       .then((admin) => {
-    //         setIsLoading(false);
-    //         if (!admin) {
-    //           router.push("/");
-    //         }
-    //       });
-    //   } else {
-    //     setIsLoading(false)
-    //     router.push("/")
-    //   }
-    // }
   }, []);
+
+
+  function Next_Auth(){
+
+    if (typeof window !== "undefined") {
+      let jwtToken = localStorage.getItem("token");
+      if (jwtToken) {
+        let decode = jwt.decode(jwtToken);
+        fetch("/api/isAdmin?id="+decode.id)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success || !data.admin) {
+              router.push("/");
+            }
+          })
+          .catch((e) => console.error(e));
+      } else {
+        router.push("/");
+      }
+    }
+
+  }
 
   const skeleton = Array.from({length:6})
   return (
@@ -113,7 +115,7 @@ export default function EditAccount() {
                             <Image
                               src={x.img}
                               fill
-                              alt={x.ItemName}
+                              alt={x.accountName}
                               sizes="100vw"
                               priority
                             />

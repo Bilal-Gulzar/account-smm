@@ -8,7 +8,7 @@ function Afterlogin({ istoken, setIstoken, Logout}) {
       onMouseLeave={() => setIstoken(false)}
       className={`${
         istoken ? "" : " hidden"
-      } animate-slide-up shadow-top-md shadow-xl top-[23px] shadow-inner-top-sm  rounded z-50 absolute bg-white w-36 py-3 -right-4 `}
+      } animate-slide-up shadow-top-md shadow-xl top-[23px] shadow-inner-top-sm  rounded z-50 absolute bg-white w-36 py-3 -right-[18px] `}
     >
       <div className="ml-5">
         <nav className=" list-none text-sm  text-gray-500">

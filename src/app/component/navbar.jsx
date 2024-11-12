@@ -4,7 +4,6 @@ import { IoIosCall } from "react-icons/io";
 import { MdMailOutline } from "react-icons/md";
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { IoIosSearch } from "react-icons/io";
-import { LiaShippingFastSolid } from "react-icons/lia";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { LuHeart } from "react-icons/lu";
 import Image from "next/image";
@@ -23,7 +22,7 @@ import WhatsappIcon from "./whatsappIcon";
 import { useRef } from "react";
 
 export default function Navbar() {
-  const { cart, setCart, search, setSearch, shoppingCart, wishlist, Logout } =
+  const { jwttoken, setJwttoken, setCart, search, setSearch, shoppingCart, wishlist, Logout } =
     useAppContext();
     const {id} = useParams()
     const path = usePathname();
@@ -32,7 +31,7 @@ export default function Navbar() {
   // console.log(noNavbarRoutes.includes(path))
   const [menu, setMenu] = useState(false);
   const [istoken, setIstoken] = useState(false);
-  const [jwttoken, setJwttoken] = useState(false);
+  
 
 let data = {setMenu,path,menu}
 
@@ -179,7 +178,7 @@ window.location.reload();
             <div
               onMouseOutCapture={() => setIstoken(false)}
               onMouseOver={() => setIstoken(true)}
-              className="lg:block relative hidden"
+              className="lg:block relative hidden "
             >
               <Link href="/orders">
                 <LoginSVG />

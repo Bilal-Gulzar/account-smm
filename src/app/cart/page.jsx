@@ -12,10 +12,11 @@ import { BsCartX } from "react-icons/bs";
 import { ImSpinner8 } from "react-icons/im";
 import { FaMinus } from "react-icons/fa";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from 'next/navigation';
 
 export default function Cart() {
 const { shoppingCart, subtotal, AddTOCart, DecreaseQuantity,RemoveFromCart } = useAppContext();
-
+const router = useRouter()
  const handleCart = (v) => {
    const fixQty = { ...v, qty: 1 }
    AddTOCart(fixQty);
@@ -39,6 +40,10 @@ const handleRemoveFromCart = (v) => {
 };
 
 useEffect(()=>{
+
+  if (!localStorage.getItem("token")) {
+    router.push("/login");
+  }
 
   setTimeout(()=>{
   setShowskel(false)

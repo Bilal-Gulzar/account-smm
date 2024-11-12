@@ -1,19 +1,19 @@
 "use client"
 import Accountsetitngnavbar from '@/app/component/accountsetitngnavbar'
 import React, { useEffect } from 'react'
-// import { usePathname,useRouter } from "next/navigation";
+import {useRouter } from "next/navigation";
 import { useState } from 'react';
 import Link from 'next/link';
 import { InfinitySpin } from "react-loader-spinner";
 import UserPage from '@/app/component/updateUser';
-// var jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 
 
 
   
 
 const User = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const [emails, setEmails] = useState([]);
   const [userId, setUserId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -28,25 +28,8 @@ const User = () => {
   };
 
   useEffect(() => {
+    Next_Auth();
     fetchingData();
-
-    // if (typeof window !== "undefined") {
-    //   if (localStorage.getItem("token")) {
-    //     let jwtToken = localStorage.getItem("token");
-    //     let decode = jwt.decode(jwtToken);
-    //     let email = decode.email;
-
-    //     fetch("/api/isAdmin?mail=" + email)
-    //       .then((res) => res.json())
-    //       .then((admin) => {
-    //         if (!admin) {
-    //           router.push("/");
-    //         }
-    //       });
-    //   } else {
-    //     router.push("/");
-    //   }
-    // }
   }, []);
 
 const handleUpdate = (id)=>{
@@ -54,6 +37,24 @@ setEditProfile(true)
 setUserId(id)
 }
 
+function Next_Auth() {
+  if (typeof window !== "undefined") {
+    let jwtToken = localStorage.getItem("token");
+    if (jwtToken) {
+      let decode = jwt.decode(jwtToken);
+      fetch("/api/isAdmin?id=" + decode.id)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.success || !data.admin) {
+            router.push("/");
+          }
+        })
+        .catch((e) => console.error(e));
+    } else {
+      router.push("/");
+    }
+  }
+}
 
   return (
     <>

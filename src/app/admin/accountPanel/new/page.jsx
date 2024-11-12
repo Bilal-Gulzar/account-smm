@@ -119,24 +119,7 @@ export default function EditAccount() {
 
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (localStorage.getItem("token")) {
-        let jwtToken = localStorage.getItem("token");
-        let decode = jwt.decode(jwtToken);
-        let email = decode.email;
-
-        fetch("/api/isAdmin?mail=" + email)
-          .then((res) => res.json())
-          .then((admin) => {
-            if (!admin) {
-              router.push("/");
-            }
-          });
-      } else {
-        router.push("/");
-      }
-    }
-
+    Next_Auth(); 
     fetch("/api/accountcategories").then((res) => {
       res
         .json()
@@ -150,6 +133,26 @@ export default function EditAccount() {
         });
     });
   }, []);
+
+
+  function Next_Auth() {
+    if (typeof window !== "undefined") {
+      let jwtToken = localStorage.getItem("token");
+      if (jwtToken) {
+        let decode = jwt.decode(jwtToken);
+        fetch("/api/isAdmin?id=" + decode.id)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success || !data.admin) {
+              router.push("/");
+            }
+          })
+          .catch((e) => console.error(e));
+      } else {
+        router.push("/");
+      }
+    }
+  }
 
   return (
     <>

@@ -13,7 +13,7 @@ import Link from "next/link";
 import Accountsetitngnavbar from "@/app/component/accountsetitngnavbar";
 import Delete from "@/app/component/delete";
 import { InfinitySpin } from "react-loader-spinner";
-// var jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 
 export default function EditAccount({ params }) {
   const { id } = params;
@@ -123,23 +123,7 @@ export default function EditAccount({ params }) {
   };
 
   useEffect(() =>{
-    // if (typeof window !== "undefined") {
-    //   if (localStorage.getItem("token")) {
-    //     let jwtToken = localStorage.getItem("token");
-    //     let decode = jwt.decode(jwtToken);
-    //     let email = decode.email;
-
-    //     fetch("/api/isAdmin?mail=" + email)
-    //       .then((res) => res.json())
-    //       .then((admin) => {
-    //         if (!admin) {
-    //           router.push("/");
-    //         }
-    //       });
-    //   } else {
-    //     router.push("/");
-    //   }
-    // }
+    Next_Auth(); 
    fetchingData()
     fetch("/api/accountcategories").then((res) => {
       res.json()
@@ -155,17 +139,17 @@ export default function EditAccount({ params }) {
   const fetchingData = async () => {
     let res = await fetch("/api/Accounts?id="+id)
     let data = await res.json();
-    if (data){
+    if (data && data.getAccount) {
       setAcountname(data.getAccount.accountName);
       setDesc(data.getAccount.desc);
       setTypesofAccount(data.getAccount.accountTypes);
       setPrice(data.getAccount.basePrice);
       setAccountcategory(data.getAccount.category);
       setImage(data.getAccount.img);
+      setIsLoading(false);
     } else {
-      console.log("somthing went wrong", data.error);
+      console.log("somthing went wrong", data?.error || "Unknown error");
     }
-    setIsLoading(false);
  
   };
 
@@ -194,6 +178,24 @@ export default function EditAccount({ params }) {
     });
   };
 
+  function Next_Auth() {
+    if (typeof window !== "undefined") {
+      let jwtToken = localStorage.getItem("token");
+      if (jwtToken) {
+        let decode = jwt.decode(jwtToken);
+        fetch("/api/isAdmin?id=" + decode.id)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success || !data.admin) {
+              router.push("/");
+            }
+          })
+          .catch((e) => console.error(e));
+      } else {
+        router.push("/");
+      }
+    }
+  }
   return (
     <>
       {isLoading ? (

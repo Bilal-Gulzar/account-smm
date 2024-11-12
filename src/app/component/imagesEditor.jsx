@@ -90,12 +90,12 @@ export default function ImagesEditor({editProfile,setEditProfile,data,setProfile
       <div
         className={`fixed right-0 ${
           editProfile ? "" : "translate-y-full"
-        } justify-center  flex left-0 top-0 backdrop-blur-sm bg-[#666666]/80 w-full h-full items-end sm:items-center`}
+        } justify-center  flex left-0 top-0 z-50 backdrop-blur-sm bg-[#666666]/80 w-full h-full items-end sm:items-center`}
       >
         <div
           className={`${
             editProfile ? "translate-y-0" : "translate-y-full"
-          }   duration-300 md:duration-200 transition-all ease-in  w-full sm:w-[550px] overflow-y-auto hide-scrollbar  sm:rounded-md rounded-t-xl  px-5 bg-white`}
+          }   duration-200 transition-all ease-in  w-full sm:w-[550px] overflow-y-auto hide-scrollbar  sm:rounded-md rounded-t-xl  px-5 bg-white`}
         >
           <div className="flex justify-between items-center mt-3">
             <h1 className="text-2xl font-medium">Edit Image</h1>

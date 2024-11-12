@@ -17,7 +17,6 @@ export default function Accountsetitngnavbar() {
   const [letter,setLetter] = useState('')
   
  useEffect(()=>{
-
   let token = localStorage.getItem('token')
  if(token){
 
@@ -39,7 +38,7 @@ export default function Accountsetitngnavbar() {
 
 // console.log(a.split("").charAt(0));
   return (
-    <section className='sticky top-0 bg-white z-50'>
+    <section className='sticky  top-0 bg-white z-40'>
       <div className="">
         <div className="lg:mx-auto  flex px-5 lg:max-w-[1200px] lg:px-14 justify-between items-center py-6">
           <div onClick={() => setShowdiv(!showdiv)} className="md:hidden">

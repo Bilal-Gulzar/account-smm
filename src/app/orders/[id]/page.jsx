@@ -1,6 +1,6 @@
 "use client"
 import Accountsetitngnavbar from '@/app/component/accountsetitngnavbar'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import Image from 'next/image';
 import PaymentSvg from '@/app/component/paymentSvg';
@@ -9,11 +9,18 @@ import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { useState } from 'react';
 import Link from 'next/link';
 import SkeletonForOrderPage from '@/app/component/skeletonForOrderPage';
+import { useRouter } from "next/navigation";
 
 function OrderPage() {
+  const router = useRouter();
   const [orderSummary, setOrderSummary] = useState(false);
   const [isloading, setIsloading] = useState(false);
 
+ useEffect(()=>{
+  if (!localStorage.getItem("token")) {
+    router.push("/login");
+  }
+},[])
 
   return (
     <main className="bg-[#f5f5f5] flex flex-col justify-between relative min-h-screen">

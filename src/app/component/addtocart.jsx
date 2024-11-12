@@ -4,19 +4,20 @@ import { CiShoppingCart } from "react-icons/ci";
 import { useAppContext } from '../contextApi/Accoutsmm'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
- function Addtocart({account}) {
+   function Addtocart({account}) {
     const {AddTOCart,setCart,setShowOpt,setSelect} =  useAppContext()
     const [isloading,setIsloading]  = useState(false)
+
     const handle = async(prop)=>{
       setIsloading(true)
-await new Promise(resolve => setTimeout(resolve,1400))
+    await new Promise(resolve => setTimeout(resolve,1400))
         setIsloading(false)
-      if(prop.accountTypes?.length > 0 ){
+      if(prop.accountTypes && prop.accountTypes?.length > 0 ){
           setShowOpt(true)
           setSelect(prop)
       }else{
       delete  prop.accountTypes
-     AddTOCart(prop)
+      AddTOCart(prop)
      setCart(true)
     }
     }

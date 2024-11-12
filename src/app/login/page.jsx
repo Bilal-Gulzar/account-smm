@@ -100,6 +100,12 @@ if(result.success){
 } 
 }
 useEffect(() => {
+  
+  if (localStorage.getItem("token")) {
+           
+    router.push('/')
+  }
+
   if (window.location.href.includes("query=codes")) {
     setOtpSent(true)
     setUserEmail(localStorage.getItem("usertemEmail"));

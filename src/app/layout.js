@@ -3,10 +3,22 @@ import Navbar from "./component/navbar";
 import Footer from "./component/footer";
 import { AppWrapper } from "@/app/contextApi/Accoutsmm";
 import { Toaster } from "react-hot-toast";
+import localFont from "next/font/local";
 import {Montserrat} from "next/font/google"
 import LogOut from "./component/logout";
-
 const Mont = Montserrat({ subsets: ["latin"] });
+
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_HOST),
@@ -39,7 +51,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${Mont.className} antialiased`}>
+      <body className={`${Mont.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppWrapper>
           <Navbar />
           <Toaster />

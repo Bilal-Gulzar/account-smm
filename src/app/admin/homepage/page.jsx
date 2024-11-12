@@ -5,8 +5,11 @@ import Image from 'next/image';
 import ImagesEditor from '@/app/component/imagesEditor';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useRouter } from "next/navigation";
+var jwt = require("jsonwebtoken");
 
 function HomePage() {
+  const router = useRouter();
  const [whatImg,setWhatImg] = useState([])
 const [editProfile, setEditProfile] = useState(false);
 const [dynamicImages, setDynamicImages] = useState([]);
@@ -15,6 +18,7 @@ const [data, setData] = useState('');
 const [isloading, setIsloading] = useState(true);
 
 useEffect(() => {
+  Next_Auth();
  fetchData()
 }, [])
 
@@ -22,21 +26,46 @@ const fetchData =()=>{
  fetch("/api/homeImages")
    .then((res) => res.json())
    .then((data) => {
-     if (data) {
-     setWhatImg(data);
+     if (data && data.length > 0) {
+       setWhatImg(data);
+       setIsloading(false);
+     } else {
+       // Optionally, handle the case where no data is returned
+       console.warn("No data received from the database.");
      }
    });
  fetch("/api/homeMainImges")
    .then((res) => res.json())
    .then((data) => {
-     if (data) {
+     if (data && data.length > 0) {
        setDynamicImages(data);
+       setIsloading(false);
+     } else {
+       // Optionally, handle the case where no data is returned
+       console.warn("No data received from the database.");
      }
-   setIsloading(false);
 
    });
 }
 
+function Next_Auth() {
+  if (typeof window !== "undefined") {
+    let jwtToken = localStorage.getItem("token");
+    if (jwtToken) {
+      let decode = jwt.decode(jwtToken);
+      fetch("/api/isAdmin?id="+decode.id)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.success || !data.admin) {
+            router.push("/");
+          }
+        })
+        .catch((e) => console.error(e));
+    } else {
+      router.push("/");
+    }
+  }
+}
 
 const skeleton = Array.from({length:3})
   return (

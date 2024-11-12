@@ -18,6 +18,7 @@ export function AppWrapper({ children }) {
   const [showOpt, setShowOpt] = useState(false);
   const [select, setSelect] = useState('');
   const [wishlist, setWishlist] = useState([]);
+  const [jwttoken, setJwttoken] = useState(false);
   // const [wishlist, setWishlist] = useState(() => {
   //       // Load wishlist from local storage
   //       if (typeof window !== 'undefined') {
@@ -74,6 +75,7 @@ export function AppWrapper({ children }) {
     setTimeout(() => {
       localStorage.removeItem("token");
       setLogging(false);
+      setJwttoken(false);
       router.push("/login");
     }, 3000);
   }
@@ -82,7 +84,7 @@ export function AppWrapper({ children }) {
 
      const checkTokenAndLogout = () => {
        const token = localStorage.getItem("token");
-       console.log("Current Token:", token);
+      //  console.log("Current Token:", token);
 
        if (token) {
          const decoded = jwt.decode(token);
@@ -125,7 +127,8 @@ export function AppWrapper({ children }) {
    };
 
 
-  const AddTOCart = (account) => {
+   const AddTOCart = (account) => {
+    console.log(account.qty);
     setShoppingCart((prev) => {
       // Find an item with the same _id and accountTypes._id
       const existingItem = prev.find(
@@ -244,7 +247,9 @@ export function AppWrapper({ children }) {
 
       // Iterate over each item to calculate the subtotal
       prev.forEach((item) => {
+        
         subtotal += item.basePrice * item.qty; // Add each item's total price to subtotal
+        console.log(subtotal)
       });
 
       // Save the subtotal to local storage
@@ -252,6 +257,23 @@ export function AppWrapper({ children }) {
        setSubtotal(subtotal)
       return prev; // Return the current shopping cart
     });
+    // setShoppingCart((prev) => {
+    //   let subtotal = 0;
+    //   // Iterate over each item to calculate the subtotal
+    //   prev.forEach((item) => {
+    //     console.log("Item basePrice:", item.basePrice, "Item qty:", item.qty);
+    //     const itemPrice = parseFloat(item.basePrice) || 0;
+    //     const itemQty = parseInt(item.qty) || 1;
+
+    //     subtotal += itemPrice * itemQty;
+    //     console.log(subtotal);
+    //   });
+
+    //   // Save the subtotal to local storage
+    //   localStorage.setItem("subtotal", JSON.stringify(subtotal));
+    //   setSubtotal(subtotal);
+    //   return prev;
+    // });
   };
 
   const ClearCart = () => {
@@ -287,6 +309,8 @@ export function AppWrapper({ children }) {
         addToWishlist,
         wishlist,
         setWishlist,
+        jwttoken,
+        setJwttoken,
       }}
     >
       {children}

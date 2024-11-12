@@ -41,7 +41,9 @@ postal:'',
 
 
 useEffect(()=>{
-
+ if (!localStorage.getItem("token")) {
+   router.push("/login");
+ }
 fetchingData() 
 },[])
 
@@ -219,7 +221,7 @@ const res = await fetch('/api/profile',{
           <div
             className={`${
               editInfo ? "translate-y-0" : "translate-y-full"
-            } transition-all  duration-300 md:duration-200 ease-in w-full md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md md:[462px] px-5 bg-white`}
+            } transition-all  duration-200 ease-in w-full md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md md:[462px] px-5 bg-white`}
           >
             <div className="mt-3 ">
               <div className="flex justify-between items-center">
@@ -443,7 +445,7 @@ const res = await fetch('/api/profile',{
           <div
             className={`${
               editProfile ? "translate-y-0" : "translate-y-full"
-            }   duration-300 md:duration-200 transition-all ease-in  w-full sm:w-[550px] md:w-[680px] lg:w-[750px] overflow-y-auto hide-scrollbar  sm:rounded-md rounded-t-xl  px-5 bg-white`}
+            }   duration-200 transition-all ease-in  w-full sm:w-[550px] md:w-[680px] lg:w-[750px] overflow-y-auto hide-scrollbar  sm:rounded-md rounded-t-xl  px-5 bg-white`}
           >
             <div className="flex justify-between items-center mt-3">
               <h1 className="text-2xl font-medium">Edit profile</h1>

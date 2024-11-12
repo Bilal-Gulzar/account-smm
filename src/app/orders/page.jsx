@@ -6,10 +6,16 @@ import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AiOutlineCheck } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
+import { useRouter } from "next/navigation";
+
 export default function Orders() {
+const router = useRouter()
 const [isloading,setIsloading] = useState(true)
 
 useEffect(()=>{
+  if (!localStorage.getItem("token")) {
+    router.push("/login");
+  }
   setTimeout(() => {
     setIsloading(false) 
     
@@ -34,9 +40,9 @@ useEffect(()=>{
             <div className="px-4 py-5 gap-5 rounded-lg bg-white flex flex-col">
               <div className="text-xs py-4 rounded-md px-5 bg-[#f5f5f5]">
                 <div className="flex items-center gap-1.5">
-                  <sapn>
+                  <span>
                     <AiOutlineCheck className="size-4" />
-                  </sapn>
+                  </span>
                   <p className="font-medium">Confirmed</p>
                 </div>
                 <p className="ml-5">Last updated Oct 19</p>
@@ -79,9 +85,9 @@ useEffect(()=>{
             <div className="px-4 py-5 gap-5 rounded-lg bg-white flex flex-col">
               <div className="text-xs py-4 rounded-md px-5 bg-[#f5f5f5]">
                 <div className="flex items-center gap-1.5">
-                  <sapn>
+                  <span>
                     <AiOutlineCheck className="size-4" />
-                  </sapn>
+                  </span>
                   <p className="font-medium">Confirmed</p>
                 </div>
                 <p className="ml-5">Last updated Oct 19</p>
@@ -124,9 +130,9 @@ useEffect(()=>{
             <div className="px-4 py-5 gap-5 rounded-lg bg-white flex flex-col">
               <div className="text-xs py-4 rounded-md px-5 bg-[#f5f5f5]">
                 <div className="flex items-center gap-1.5">
-                  <sapn>
+                  <span>
                     <AiOutlineCheck className="size-4" />
-                  </sapn>
+                  </span>
                   <p className="font-medium">Confirmed</p>
                 </div>
                 <p className="ml-5">Last updated Oct 19</p>
