@@ -128,8 +128,6 @@ export function AppWrapper({ children }) {
 
 
    const AddTOCart = (account) => {
-    console.log("qty",account.qty);
-    console.log("addtocart",account);
     setShoppingCart((prev) => {
       // Find an item with the same _id and accountTypes._id
       const existingItem = prev.find(
@@ -244,28 +242,14 @@ export function AppWrapper({ children }) {
 
   const CalculateAndSaveSubtotal = (totalprice) => {
     
-    // setShoppingCart((prev) => {
-      let subtotal = 0; // Initialize subtotal to 0
+    let subtotal = 0; // Initialize subtotal to 0
 
     //   // Iterate over each item to calculate the subtotal
-    //   prev.forEach((item) => {
-        
-    //     subtotal += item.basePrice * item.qty; // Add each item's total price to subtotal
-    //     console.log(subtotal)
-    //   });
-
-    //   // Save the subtotal to local storage
-    //   localStorage.setItem("subtotal", JSON.stringify(subtotal));
-    //    setSubtotal(subtotal)
-    //   return prev; // Return the current shopping cart
-    // });
-
-    for (let item of totalprice ){
+    for (let item of totalprice) {
       subtotal += item.basePrice * item.qty; // Add each item's total price to subtotal
       localStorage.setItem("subtotal", JSON.stringify(subtotal));
-      setSubtotal(subtotal)
+      setSubtotal(subtotal);
     }
-  
   };
 
   const ClearCart = () => {

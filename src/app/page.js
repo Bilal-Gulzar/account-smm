@@ -42,7 +42,7 @@ useEffect(()=>{
       console.error("Error fetching images:", error);
     }
   };
-console.log(eachData)
+
   const skeleton = Array.from({length:6})
   return (
     <main className="pb-10">
