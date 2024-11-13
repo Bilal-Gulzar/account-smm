@@ -16,29 +16,24 @@ function UserPage({ editProfile, setEditProfile,id}) {
   const [address, setAddress] = useState("");
   const [postal, setPostal] = useState("");
   const [country, setCountry] = useState("");
-  const [isData, setIsData] = useState([]);
+  const [admin, setAdmin] = useState(false);
   const [saving, setSaving] = useState(false);
   const [checkNum, setCheckNum] = useState(false);
   const [profileMessage, setProfileMessage] = useState(false);
-
   const fetchingData = () => {
-    let Token = localStorage.getItem("token");
-    // if (Token) {
     fetch("/api/profile?id=" + id)
       .then((res) => res.json())
       .then((data) => {
-        setEmail(data?.email);
-        setFName(data?.firstName);
-        setLName(data?.lastName);
-        setPhone(data?.number);
-        setCity(data?.city);
-        setCountry(data?.country);
-        setPostal(data?.postalCode);
-        setAddress(data?.address);
+        setEmail(data?.email || '');
+        setFName(data?.firstName || '');
+        setLName(data?.lastName || '');
+        setPhone(data?.number || '');
+        setCity(data?.city || '');
+        setCountry(data?.country || '');
+        setPostal(data?.postalCode || '');
+        setAddress(data?.address || '');
+        setAdmin(data?.admin || false)
       });
-    // } else {
-    // router.push("/login");
-    // }
   };
 
   useEffect(() => {
@@ -52,7 +47,8 @@ function UserPage({ editProfile, setEditProfile,id}) {
       return setCheckNum(true), router.push("###");
     setCheckNum(false);
     setSaving(true);
-    const data = { id, fName, lName, phone, country, city, postal, address };
+
+    const data = { id, fName, lName, phone, country, city, postal, address , admin };
     let res = await fetch("/api/profile", {
       method: "PUT",
       headers: {
@@ -86,7 +82,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
         >
           <div
             className={`${
-              editProfile  ? "translate-y-0" : "translate-y-full"
+              editProfile ? "translate-y-0" : "translate-y-full"
             } transition-all  duration-300 md:duration-200 ease-in w-full   md:h-[340px] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md md:[462px] px-5 bg-white`}
           >
             <div id="##" className="mt-3 ">
@@ -273,6 +269,16 @@ function UserPage({ editProfile, setEditProfile,id}) {
                     >
                       Phone
                     </label>
+                  </div>
+                  <div className="flex items-center ml-1 mt-1 gap-2">
+                    <input
+                      id="checkbox"
+                      type="checkbox"
+                      checked={admin}
+                      className="accent-black"
+                      onChange={() => setAdmin(!admin)}
+                    />
+                    <label htmlFor="checkbox" className="text-xs">Admin</label>
                   </div>
                 </div>
                 <div className="py-5 flex justify-end ">

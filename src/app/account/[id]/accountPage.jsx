@@ -137,7 +137,7 @@ function AccountPage({id}) {
               </div>
               <div className="flex flex-col px-0.5 gap-5 overflow-hidden break-all">
                 <div className="">
-                  <p className="font-semibold text-xl">{data.accountName}</p>
+                  <p className="font-semibold text-xl">{data?.accountName}</p>
                   {data.accountTypes?.length > 0 && (
                     <p className="font-medium text-lg">
                       ${selectOpt?.extraPrice}
@@ -148,7 +148,7 @@ function AccountPage({id}) {
                   )}
                 </div>
                 <p className="text-gray-500   text-sm  ">
-                  Buy 100% verified {data.accountName}
+                  Buy 100% verified {data?.accountName}
                 </p>
                 {data.accountTypes?.length > 0 && (
                   <div className="">

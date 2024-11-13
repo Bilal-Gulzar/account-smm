@@ -155,7 +155,7 @@ export default function ImagesEditor({editProfile,setEditProfile,data,setProfile
                   htmlFor="lastName"
                   className="left-5 top-7 floating-label transform -translate-y-1/2  transition-all duration-200  absolute text-sm text-gray-500"
                 >
-                  {condition ? "Image Url" : "Iamge name"}
+                  {condition ? "Image Url" : "Image name"}
                 </label>
               </div>
             </div>

@@ -54,13 +54,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${Mont.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${Mont.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <AppWrapper>
-          <Navbar />
-          <Toaster />
-          <LogOut />
-          {children}
-          <Footer />
+          <div className="flex flex-col min-h-screen justify-between">
+            <div>
+              <Navbar />
+              <Toaster />
+              <LogOut />
+              {children}
+            </div>
+             <div>
+              <Footer />
+            </div>
+          </div>
         </AppWrapper>
       </body>
     </html>

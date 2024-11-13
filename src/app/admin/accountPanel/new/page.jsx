@@ -177,7 +177,7 @@ export default function EditAccount() {
                   <span>
                     <FaRegArrowAltCircleLeft className="size-6" />
                   </span>
-                  <p className="font-sans font-bold">Show all Accounts</p>
+                  <p className=" font-bold">Show all Accounts</p>
                 </div>
               </Link>
               <div className="sm:w-[36rem] lg:w-[47rem]  mt-10 flex flex-col items-end mx-auto">
@@ -202,7 +202,7 @@ export default function EditAccount() {
                           </div>
                         )}
                       </div>
-                      <div className=" font-sans text-gray-600 font-medium text-sm rounded-lg border border-gray-100 bg-white ">
+                      <div className="text-gray-600 font-medium text-sm rounded-lg border border-gray-100 bg-white ">
                         <label className=" flex flex-col justify-center cursor-pointer items-center h-12 w-[8rem] lg:w-[11rem] ">
                           <input
                             type="file"
@@ -215,7 +215,7 @@ export default function EditAccount() {
                     </div>
                     <label
                       htmlFor="name"
-                      className="block font-sans text-sm sm:mt-0 mt-3 font-medium leading-6 text-gray-600"
+                      className="block text-sm sm:mt-0 mt-3 font-medium leading-6 text-gray-600"
                     >
                       Account name
                     </label>
@@ -233,7 +233,7 @@ export default function EditAccount() {
                     </div>
                     <label
                       htmlFor="desc"
-                      className="block mt-3 font-sans text-sm font-medium leading-6 text-gray-600"
+                      className="block mt-3 text-sm font-medium leading-6 text-gray-600"
                     >
                       Description
                     </label>
@@ -251,7 +251,7 @@ export default function EditAccount() {
                     </div>
                     <label
                       htmlFor="category"
-                      className="block mt-3 font-sans text-sm font-medium leading-6 text-gray-600"
+                      className="block mt-3 text-sm font-medium leading-6 text-gray-600"
                     >
                       Types of Account
                     </label>
@@ -276,7 +276,7 @@ export default function EditAccount() {
                     </div>
                     <label
                       htmlFor="price"
-                      className="block mt-3 font-sans text-sm font-medium leading-6 text-gray-600"
+                      className="block mt-3 text-sm font-medium leading-6 text-gray-600"
                     >
                       Base Price
                     </label>
@@ -296,7 +296,7 @@ export default function EditAccount() {
                       <button
                         onClick={() => setSlideUp(!slideUp)}
                         type="button"
-                        className=" flex items-center  gap-2 font-sans font-semibold text-lg "
+                        className=" flex items-center  gap-2  font-semibold text-lg "
                       >
                         {slideUp && (
                           <span>
@@ -321,19 +321,20 @@ export default function EditAccount() {
                                 <div key={v._id} className="flex flex-col">
                                   <label
                                     htmlFor="typesofAccount"
-                                    className="font-sans text-sm text-gray-600 font-semibold"
+                                    className="text-sm text-gray-600 font-semibold"
                                   >
                                     Name
                                   </label>
                                   <input
                                     id="typesofAccount"
                                     type="text"
+                                    required
                                     value={v.typeOfAccount}
                                     onChange={(evt) =>
                                       editaccount(evt, index, "typeOfAccount")
                                     }
                                     placeholder="account name"
-                                    className="bg-white font-sans border-gray-300  p-2 rounded-lg outline-none focus:ring-1 border  focus:ring-black "
+                                    className="bg-white  border-gray-300  p-2 rounded-lg outline-none focus:ring-1 border  focus:ring-black "
                                     autoComplete="off"
                                   />
                                 </div>
@@ -343,19 +344,20 @@ export default function EditAccount() {
                                 >
                                   <label
                                     htmlFor="ExtraPrice"
-                                    className="font-sans text-sm  text-gray-600 font-semibold"
+                                    className=" text-sm  text-gray-600 font-semibold"
                                   >
                                     Extra Price
                                   </label>
                                   <input
                                     id="ExtraPrice"
                                     type="number"
+                                    required
                                     value={v.extraPrice}
                                     onChange={(evt) =>
                                       editaccount(evt, index, "extraPrice")
                                     }
                                     // placeholder="0"
-                                    className="bg-white font-sans p-2 rounded-lg outline-none focus:ring-1 border border-gray-300  focus:ring-black "
+                                    className="bg-white  p-2 rounded-lg outline-none focus:ring-1 border border-gray-300  focus:ring-black "
                                     autoComplete="off"
                                   />
                                   <button
@@ -371,7 +373,7 @@ export default function EditAccount() {
                           <button
                             type="button"
                             onClick={addTypesofAccount}
-                            className="w-full flex justify-center items-center font-sans text-lg font-semibold p-2 mt-3 rounded-lg bg-white gap-2 mb-1 outline-none"
+                            className="w-full flex justify-center items-center text-lg font-semibold p-2 mt-3 rounded-lg bg-white gap-2 mb-1 outline-none"
                           >
                             <span>
                               <AiOutlinePlus className="size-5" />
@@ -384,7 +386,7 @@ export default function EditAccount() {
                   </div>
                   <button
                     type="submit"
-                    className=" mx-5 sm:mx-0 w-[90vw] sm:w-full py-2 rounded-lg  flex justify-center items-center bg-black font-sans font-semibold text-white outline-none text-lg"
+                    className=" mx-5 sm:mx-0 w-[90vw] sm:w-full py-2 rounded-lg  flex justify-center items-center bg-black  font-semibold text-white outline-none text-lg"
                   >
                     Save
                   </button>

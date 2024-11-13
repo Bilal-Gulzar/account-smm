@@ -23,8 +23,10 @@ const User = () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getUsers`);
     setIsLoading(false);
     const response = await res.json();
+    if(response && response.length > 0){
     setEmails(response.reverse() || []);
     setIsLoading(false)
+    }
   };
 
   useEffect(() => {
@@ -83,13 +85,13 @@ function Next_Auth() {
                     key={i}
                     className="w-[85vw] mx-auto sm:mx-0 sm:w-[30rem] flex justify-between  items-center lg:w-[32rem] rounded-lg border py-2.5 px-4 shadow-sm bg-white sm:text-sm sm:leading-6 outline-none gap-3 sm:gap-0"
                   >
-                    <p className="text-gray-800 font-sans line-clamp-1 font-medium">
+                    <p className="text-gray-800  line-clamp-1 font-medium">
                       {v.email}
                     </p>
 
                     <button
                       onClick={() => handleUpdate(v._id)}
-                      className="bg-gray-100 border-gray-400 border text-gray-900 w-[53px] py-1 rounded-md  flex justify-center items-center font-sans font-bold  outline-none"
+                      className="bg-gray-100 border-gray-400 border text-gray-900 w-[53px] py-1 rounded-md  flex justify-center items-center font-bold  outline-none"
                     >
                       Edit
                     </button>

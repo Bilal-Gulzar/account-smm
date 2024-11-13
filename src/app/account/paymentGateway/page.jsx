@@ -63,7 +63,7 @@ export default async function PaymentGateway({ searchParams }) {
                 </p>
               </div>
 
-              <div className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0  mt-5">
+              <div className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0  xl:px-2 mt-5">
                 {getData?.accounts.length > 0 &&
                   getData.accounts.map((v) => (
                     <div

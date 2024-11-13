@@ -7,7 +7,6 @@ import Link from "next/link";
 import { GoSearch } from "react-icons/go";
 import { GoAlertFill } from "react-icons/go";
 import Pagination from "../component/pagination";
-import { Suspense } from "react";
 // import GraterThanTotalPage from "../component/graterThanTotalPage";
 export const metadata = {
   title: "Search",
@@ -42,7 +41,6 @@ export const getSearch = async (queryParam,page) => {
     // const currentPageno = page;
     // const condition = page > totalPages
    return (
-     <Suspense>
        <main>
          <div className="pb-32">
            <div className="mt-8 break-words px-7">
@@ -68,7 +66,7 @@ export const getSearch = async (queryParam,page) => {
            )}
 
            {getData.success && (
-             <div className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0  mt-5">
+             <div className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0  xl:px-2 mt-5">
                {getData?.results?.length > 0 &&
                  getData.results.map((v) => (
                    <div
@@ -117,7 +115,6 @@ export const getSearch = async (queryParam,page) => {
            )}
          </div>
        </main>
-     </Suspense>
    );
  }
 

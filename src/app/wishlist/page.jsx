@@ -44,7 +44,7 @@ setisloading(false)
       {!isloading && wishlist?.length > 0 && (
         <div
           className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 
-      hide-scrollbar overflow-x-auto mx-auto px-5 lg:px-0  mt-5"
+      hide-scrollbar overflow-x-auto mx-auto px-5 lg:px-0 xl:px-2 mt-5"
         >
           {wishlist.map((v, index) => (
             <div

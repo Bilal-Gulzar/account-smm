@@ -8,223 +8,240 @@ import LogOut from '../component/logout';
 import { useRouter } from 'next/navigation';
 import { MdOutlineErrorOutline } from "react-icons/md";
 import SkeletonForProfilePage from '../component/skeletonForProfilePage';
+import { document } from 'postcss';
 var jwt = require("jsonwebtoken");
 
 export default function Profile(){
-const router = useRouter()
-  const [editInfo,setEditInfo] = useState(false)
-  const [editProfile,setEditProfile] = useState(false)
-  const  [email,setEmail] = useState('')
-  const  [fName,setFName] = useState('')
-  const  [lName,setLName] = useState('')
-  const  [phone,setPhone] = useState('')
-  const  [city,setCity] = useState('')
-  const  [address,setAddress] = useState('')
-  const  [postal,setPostal] = useState('')
-  const  [country,setCountry] = useState('')
-  const  [jwtToken,setJwtToken] = useState('')
-  const  [saving,setSaving] = useState(false)
-  const  [checkNum,setCheckNum] = useState(false)
-  const  [message,setMessage] = useState(false)
-  const  [profileMessage,setProfileMessage] = useState(false)
-  const [isChange,setIsChange] = useState(false)
-  const [isloading,setIsloading] = useState(true)
+  const router = useRouter();
+  const [editInfo, setEditInfo] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [email, setEmail] = useState("");
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [postal, setPostal] = useState("");
+  const [country, setCountry] = useState("");
+  const [jwtToken, setJwtToken] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [checkNum, setCheckNum] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [profileMessage, setProfileMessage] = useState(false);
+  const [isChange, setIsChange] = useState(false);
+  const [isloading, setIsloading] = useState(true);
 
-const  [userInfo,setUserInfo] = useState({
-name: '',
-phone:'',
-city: '',
-country:'',
-address:'',
-postal:'',
-})
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    phone: "",
+    city: "",
+    country: "",
+    address: "",
+    postal: "",
+  });
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/login");
+    }
+    fetchingData();
+  }, []);
 
-useEffect(()=>{
- if (!localStorage.getItem("token")) {
-   router.push("/login");
- }
-fetchingData() 
-},[])
+  const fetchingData = () => {
+    let Token = localStorage.getItem("token");
+    if (Token) {
+      setJwtToken(Token);
+      const decode = jwt.decode(Token);
+      const id = decode.id;
+      fetch("/api/profile?id=" + id)
+        .then((res) => res.json())
+        .then((data) => {
+          if (Object.keys(data).length > 5) {
+            const fullName =
+              (data.firstName || "").trim() +
+              " " +
+              (data.lastName || "").trim();
+            setUserInfo({
+              name: fullName.trim() || "",
+              // name: data?.firstName+" "+data?.lastName || '',
+              phone: data?.number || "",
+              address: data?.address || "",
+              city: data?.city || "",
+              country: data?.country || "",
+              postal: data?.postalCode || "",
+            });
+          }
+          setEmail(data?.email);
+          setFName(data?.firstName);
+          setLName(data?.lastName);
+          setPhone(data?.number);
+          setCity(data?.city);
+          setCountry(data?.country);
+          setPostal(data?.postalCode);
+          setAddress(data?.address);
 
- const fetchingData = () => {
-   let Token = localStorage.getItem("token");
-   if (Token) {
-     setJwtToken(Token);
-     const decode = jwt.decode(Token);
-     const id = decode.id;
-     fetch("/api/profile?id=" + id)
-       .then((res) => res.json())
-       .then((data) =>{
-        if(Object.keys(data).length > 5){
-          const fullName =
-            (data.firstName || "").trim() + " " + (data.lastName || "").trim();
-        setUserInfo({
-          name: fullName.trim() || "",
-          // name: data?.firstName+" "+data?.lastName || '',
-          phone: data?.number || "",
-          address: data?.address || "",
-          city: data?.city || "",
-          country: data?.country || "",
-          postal: data?.postalCode || "",
-        });}
-         setEmail(data?.email);
-         setFName(data?.firstName);
-         setLName(data?.lastName);
-         setPhone(data?.number);
-         setCity(data?.city);
-         setCountry(data?.country);
-         setPostal(data?.postalCode);
-         setAddress(data?.address);
-         
-         setIsloading(false)
-       });
-   } else {
-     router.push("/login");
-   }
- };
+          setIsloading(false);
+        });
+    } else {
+      router.push("/login");
+    }
+  };
 
-useEffect(()=>{
-fetchingData()
+  useEffect(() => {
+    fetchingData();
+  }, [isChange]);
 
-},[isChange])
+  const addUserInfo = async (evt) => {
+    evt.preventDefault();
+    const length = `${phone}`.length;
+    if (length < 11 || length > 11) return setCheckNum(true);
+    setCheckNum(false);
+    setSaving(true);
+    const data = {
+      jwtToken,
+      fName,
+      lName,
+      phone,
+      country,
+      city,
+      postal,
+      address,
+    };
+    let res = await fetch("/api/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
+    let result = await res.json();
+    setIsChange(!isChange);
+    setTimeout(() => {
+      setSaving(false);
+      setEditInfo(false);
+      showMessage();
+    }, 1500);
 
-  const addUserInfo = async (evt)=>{
-   evt.preventDefault()
-   const length = `${phone}`.length;
-   if(length < 11 || length > 11) return setCheckNum(true)
-    setCheckNum(false)
-    setSaving(true)
-   const data = {jwtToken,fName,lName,phone,country,city,postal,address}
-   let res = await fetch('/api/profile',{
- method: "PUT",
- headers:{
-"Content-Type" : "application/json"
- },
- body: JSON.stringify(data)
+    const showMessage = () => {
+      setMessage(true);
+      setTimeout(() => {
+        setMessage(false);
+      }, 1500);
+    };
+  };
 
-   })
+  async function updateUserName(evt) {
+    evt.preventDefault();
+    setSaving(true);
+    const data = { fName, lName, jwtToken };
 
-   let result = await res.json()
-  setIsChange(!isChange);
-   setTimeout(() => {
-     setSaving(false);
-     setEditInfo(false);
-     showMessage()
-   }, 1500)   
+    const res = await fetch("/api/profile", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    let response = await res.json();
+    setIsChange(!isChange);
+    setTimeout(() => {
+      setSaving(false);
+      setEditProfile(false);
+      showMessage();
+    }, 1500);
 
-const showMessage = ()=>{
-  setMessage(true)
-setTimeout(()=>{
-setMessage(false)
-},1500)
-
-}
-
+    const showMessage = () => {
+      setProfileMessage(true);
+      setTimeout(() => {
+        setProfileMessage(false);
+      }, 1500);
+    };
   }
 
-async function updateUserName (evt){
-  evt.preventDefault()
-  setSaving(true)
-const data = {fName,lName,jwtToken}
-
-const res = await fetch('/api/profile',{
-
-  method:"PUT",
-  headers:{
-  "Content-Type" : "application/json"
-  },
-  body: JSON.stringify(data)
-})
-  let response = await res.json()
-  setIsChange(!isChange);
-   setTimeout(() => {
-     setSaving(false);
-     setEditProfile(false);
-     showMessage()
-   }, 1500);  
-
-
-   const showMessage = () => {
-     setProfileMessage(true);
-     setTimeout(() => {
-       setProfileMessage(false);
-     }, 1500);
+ useEffect(() => {
+   const handleWindowLoad = () => {
+     document.body.style.overflow = editInfo || editProfile ? "hidden" : "auto";
    };
-}
+
+   if (typeof window !== "undefined") {
+     window.addEventListener("load", handleWindowLoad);
+     return () => {
+       window.removeEventListener("load", handleWindowLoad);
+     };
+   }
+ }, [editInfo, editProfile]);
 
 
   return (
     <main className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen ">
       <div>
         <Accountsetitngnavbar />
-        {isloading ? 
-        <SkeletonForProfilePage />
+        {isloading ? (
+          <SkeletonForProfilePage />
+        ) : (
+          <div className="mt-5 px-5  lg:max-w-[1200px] lg:mx-auto lg:px-14">
+            <h1 className="font-medium text-2xl">Profile</h1>
 
-:
-        <div className="mt-5 px-5  lg:max-w-[1200px] lg:mx-auto lg:px-14">
-          <h1 className="font-medium text-2xl">Profile</h1>
-
-          <div className="flex gap-7 flex-col mt-10">
-            <div className="bg-white px-7 py-7 rounded-md flex flex-col gap-3 ">
-              <p className="flex gap-5 items-center text-sm text-gray-500 ">
-                {userInfo.name ? (
-                  <div className="text-sm text-black font-medium break-all ">
-                    {userInfo.name}
-                  </div>
-                ) : (
-                  "Edit Name"
-                )}
-                <span
-                  onClick={() => setEditProfile(true)}
-                  className="cursor-pointer"
-                >
-                  <GrEdit className="size-3.5" />
-                </span>
-              </p>
-              <div className="text-sm">
-                <p className="text-gray-500">Email</p>
-                <p>{email}</p>
-              </div>
-            </div>
-
-            <div className="bg-white px-7 py-7 rounded-md flex flex-col gap-3 ">
-              <p className="font-medium">Address</p>
-              <div className="hover:bg-[#f5f5f5] rounded-md p-4">
-                <p className="text-gray-500  text-sm flex justify-between items-center">
-                  Default Address
+            <div className="flex gap-7 flex-col mt-10">
+              <div className="bg-white px-7 py-7 rounded-md flex flex-col gap-3 ">
+                <p className="flex gap-5 items-center text-sm text-gray-500 ">
+                  {userInfo.name ? (
+                    <div className="text-sm text-black font-medium break-all ">
+                      {userInfo.name}
+                    </div>
+                  ) : (
+                    "Edit Name"
+                  )}
                   <span
-                    onClick={() => setEditInfo(true)}
+                    onClick={() => setEditProfile(true)}
                     className="cursor-pointer"
                   >
                     <GrEdit className="size-3.5" />
                   </span>
                 </p>
-                <div className="mt-3 flex flex-col gap-0.5">
-                  <div className="text-sm">{userInfo.name}</div>
-                  <div className="text-sm">{userInfo.address}</div>
-                  <div className="text-sm">
-                    {userInfo.city + " " + userInfo.postal}
+                <div className="text-sm">
+                  <p className="text-gray-500">Email</p>
+                  <p>{email}</p>
+                </div>
+              </div>
+
+              <div className="bg-white px-7 py-7 rounded-md flex flex-col gap-3 ">
+                <p className="font-medium">Address</p>
+                <div className="hover:bg-[#f5f5f5] rounded-md p-4">
+                  <p className="text-gray-500  text-sm flex justify-between items-center">
+                    Default Address
+                    <span
+                      onClick={() => setEditInfo(true)}
+                      className="cursor-pointer"
+                    >
+                      <GrEdit className="size-3.5" />
+                    </span>
+                  </p>
+                  <div className="mt-3 flex flex-col gap-0.5">
+                    <div className="text-sm">{userInfo.name}</div>
+                    <div className="text-sm">{userInfo.address}</div>
+                    <div className="text-sm">
+                      {userInfo.city + " " + userInfo.postal}
+                    </div>
+                    <div className="text-sm">{userInfo.country}</div>
+                    <div className="text-sm">{userInfo.phone}</div>
                   </div>
-                  <div className="text-sm">{userInfo.country}</div>
-                  <div className="text-sm">{userInfo.phone}</div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-}
+        )}
 
         <div
-          className={`fixed right-0 ${
+          className={`fixed right-0  overflow-hidden ${
             editInfo ? "flex" : " translate-y-full "
           } justify-center left-0 top-0  backdrop-blur-sm bg-[#666666]/80 w-full h-full  items-end md:items-center z-50`}
         >
           <div
             className={`${
               editInfo ? "translate-y-0" : "translate-y-full"
-            } transition-all  duration-200 ease-in w-full md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md md:[462px] px-5 bg-white`}
+            } transition-all  duration-200 ease-in w-full md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  md:[462px] px-5 bg-white`}
           >
             <div className="mt-3 ">
               <div className="flex justify-between items-center">

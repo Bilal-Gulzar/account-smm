@@ -50,9 +50,7 @@ useEffect(()=>{
       <MainImg DynamicImg={dyImg} />
       <WhatsNew images={images} />
 
-      <div
-        className="lg:container grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0 xl:px-1  mt-5"
-      >
+      <div className="lg:container grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0 xl:px-1  mt-5">
         {eachData?.length > 0
           ? eachData.map((v) => (
               <div
@@ -112,27 +110,29 @@ useEffect(()=>{
         <h1 className="text-2xl sm:text-4xl font-semibold text-center ">
           Trusted and and verified Exchanges & payment Gateways{" "}
         </h1>
-        <div className="relative mt-5 flex flex-col sm:flex-row gap-3 px-0.5">
-          <Image
-            src="/img3.webp"
-            width={200}
-            quality={100}
-            height={200}
-            className="w-full h-auto"
-            sizes="auto"
-            priority
-            alt="trust of account smm"
-          />
-          <Image
-            src="/img4.webp"
-            width={200}
-            height={200}
-            quality={100}
-            className="w-full h-auto"
-            sizes="auto"
-            priority
-            alt="trust of account smm"
-          />
+        <div className="relative  overflow-x-hidden mt-5 flex flex-col sm:flex-row gap-3 px-0.5">
+          <div>
+            <Image
+              src="/img3.webp"
+              width={900}
+              quality={100}
+              height={900}
+              sizes="auto"
+              priority
+              alt="trust of account smm"
+            />
+          </div>
+          <div>
+            <Image
+              src="/img4.webp"
+              width={900}
+              height={900}
+              quality={100}
+              sizes="auto"
+              priority
+              alt="trust of account smm"
+            />
+          </div>
         </div>
       </div>
       <div className="mt-8 px-4 sm:pl-8">
