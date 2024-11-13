@@ -57,14 +57,17 @@ fetchingData()
        .then((res) => res.json())
        .then((data) =>{
         if(Object.keys(data).length > 5){
+          const fullName =
+            (data.firstName || "").trim() + " " + (data.lastName || "").trim();
         setUserInfo({
-          name: data?.firstName+" "+data?.lastName || '',
-          phone:data?.number || '',
-          address:data?.address || '',
-          city:data?.city || '',
-          country:data?.country || '',
-          postal:data?.postalCode || ''
-        })}
+          name: fullName.trim() || "",
+          // name: data?.firstName+" "+data?.lastName || '',
+          phone: data?.number || "",
+          address: data?.address || "",
+          city: data?.city || "",
+          country: data?.country || "",
+          postal: data?.postalCode || "",
+        });}
          setEmail(data?.email);
          setFName(data?.firstName);
          setLName(data?.lastName);

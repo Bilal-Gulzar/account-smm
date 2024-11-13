@@ -59,7 +59,7 @@ function Next_Auth() {
   return (
     <>
       {isLoading ? (
-        <div className="w-full flex justify-center items-center h-screen overflow-hidden">
+        <div className="w-full flex justify-center  items-center h-screen overflow-hidden">
           <div>
             <InfinitySpin
               visible={true}
