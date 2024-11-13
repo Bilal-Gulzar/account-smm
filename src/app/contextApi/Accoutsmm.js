@@ -128,7 +128,8 @@ export function AppWrapper({ children }) {
 
 
    const AddTOCart = (account) => {
-    console.log(account.qty);
+    console.log("qty",account.qty);
+    console.log("addtocart",account);
     setShoppingCart((prev) => {
       // Find an item with the same _id and accountTypes._id
       const existingItem = prev.find(
