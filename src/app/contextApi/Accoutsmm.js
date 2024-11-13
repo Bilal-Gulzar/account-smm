@@ -169,7 +169,7 @@ export function AppWrapper({ children }) {
 
       // Save the updated cart to local storage
       saveCartToLocalStorage(updatedCart);
-      CalculateAndSaveSubtotal(); // Update subtotal after adding an item
+      CalculateAndSaveSubtotal(updatedCart); // Update subtotal after adding an item
 
       return updatedCart;
     });
@@ -184,7 +184,7 @@ export function AppWrapper({ children }) {
        updatedCart = prev.filter((item) => !(item._id === account._id && item.accountTypes._id === account.accountTypes._id));
       }
       saveCartToLocalStorage(updatedCart);
-      CalculateAndSaveSubtotal(); // Update subtotal after removing an item
+      CalculateAndSaveSubtotal(updatedCart); // Update subtotal after removing an item
       return updatedCart;
     });
   };
@@ -201,7 +201,7 @@ export function AppWrapper({ children }) {
               );
 
               saveCartToLocalStorage(updatedCart);
-              CalculateAndSaveSubtotal(); // Update subtotal after decreasing quantity
+              CalculateAndSaveSubtotal(updatedCart); // Update subtotal after decreasing quantity
 
               return updatedCart;
             } else {
@@ -209,7 +209,7 @@ export function AppWrapper({ children }) {
                 (item) => item._id !== account._id
               );
               saveCartToLocalStorage(updatedCart);
-              CalculateAndSaveSubtotal(); // Update subtotal after removing item
+              CalculateAndSaveSubtotal(updatedCart); // Update subtotal after removing item
 
               return updatedCart;
             }
@@ -223,7 +223,7 @@ export function AppWrapper({ children }) {
               );
 
               saveCartToLocalStorage(updatedCart);
-              CalculateAndSaveSubtotal(); // Update subtotal after decreasing quantity
+              CalculateAndSaveSubtotal(updatedCart); // Update subtotal after decreasing quantity
 
               return updatedCart;
             } else {
@@ -231,7 +231,7 @@ export function AppWrapper({ children }) {
                 (item) => !(item._id === account._id  && item.accountTypes._id === account.accountTypes._id)
               );
               saveCartToLocalStorage(updatedCart);
-              CalculateAndSaveSubtotal(); // Update subtotal after removing item
+              CalculateAndSaveSubtotal(updatedCart); // Update subtotal after removing item
 
               return updatedCart;
             }
@@ -242,39 +242,30 @@ export function AppWrapper({ children }) {
     });
   };
 
-  const CalculateAndSaveSubtotal = () => {
-    setShoppingCart((prev) => {
+  const CalculateAndSaveSubtotal = (totalprice) => {
+    
+    // setShoppingCart((prev) => {
       let subtotal = 0; // Initialize subtotal to 0
 
-      // Iterate over each item to calculate the subtotal
-      prev.forEach((item) => {
-        
-        subtotal += item.basePrice * item.qty; // Add each item's total price to subtotal
-        console.log(subtotal)
-      });
-
-      // Save the subtotal to local storage
-      localStorage.setItem("subtotal", JSON.stringify(subtotal));
-       setSubtotal(subtotal)
-      return prev; // Return the current shopping cart
-    });
-    // setShoppingCart((prev) => {
-    //   let subtotal = 0;
     //   // Iterate over each item to calculate the subtotal
     //   prev.forEach((item) => {
-    //     console.log("Item basePrice:", item.basePrice, "Item qty:", item.qty);
-    //     const itemPrice = parseFloat(item.basePrice) || 0;
-    //     const itemQty = parseInt(item.qty) || 1;
-
-    //     subtotal += itemPrice * itemQty;
-    //     console.log(subtotal);
+        
+    //     subtotal += item.basePrice * item.qty; // Add each item's total price to subtotal
+    //     console.log(subtotal)
     //   });
 
     //   // Save the subtotal to local storage
     //   localStorage.setItem("subtotal", JSON.stringify(subtotal));
-    //   setSubtotal(subtotal);
-    //   return prev;
+    //    setSubtotal(subtotal)
+    //   return prev; // Return the current shopping cart
     // });
+
+    for (let item of totalprice ){
+      subtotal += item.basePrice * item.qty; // Add each item's total price to subtotal
+      localStorage.setItem("subtotal", JSON.stringify(subtotal));
+      setSubtotal(subtotal)
+    }
+  
   };
 
   const ClearCart = () => {
