@@ -19,7 +19,10 @@
   height: 100%; /* Ensures no scrollbars appear on the entire body */
 }
 
-
+.min-height{
+min-height: 100vh;
+min-height: 100dvh;
+}
 
 
 /* .input-field:focus ~ .floating-label,

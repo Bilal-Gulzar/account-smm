@@ -13,10 +13,8 @@ import { GoAlertFill } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
 import ScrollLock from "react-scrolllock";
-import screenfull from "screenfull";
-import { useEffect } from "react";
-import { isMobile, isTablet } from "react-device-detect";
 export default function Cart() {
+
   const {
     cart,
     setCart,
@@ -67,25 +65,12 @@ export default function Cart() {
     }, 1400);
   };
 
-   useEffect(() => {
-     const setVh = () => {
-       const vh = window.innerHeight * 0.01;
-       document.documentElement.style.setProperty("--vh", `${vh}px`);
-     };
-
-     setVh();
-     window.addEventListener("resize", setVh);
-
-     return () => window.removeEventListener("resize", setVh);
-   }, []);
-
   return (
     <section
-      className={`${cart ? "fixed bg-black/80 inset-0  min-h-screen " : ""}`}
-      style={{ height: isMobile ? "calc(var(--vh) * 100)" : "auto" }}
+      className={`${cart ? "fixed bg-black/80 inset-0  min-height " : ""}`}
     >
+      {" "}
       {cart && <ScrollLock />}
-
       <div
         className={`min-h-screen w-[90vw]  sm:w-80 z-50 fixed right-0 top-0 bg-white ${
           cart ? "" : "translate-x-full"
