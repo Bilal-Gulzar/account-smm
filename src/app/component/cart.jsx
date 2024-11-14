@@ -70,7 +70,7 @@ export default function Cart() {
       className={`${cart ? "fixed bg-black/80 inset-0 " : ""}`}
     >
       {" "}
-      {cart && <ScrollLock />}
+      {/* {cart && <ScrollLock />} */}
       <div
         className={`min-h-[100dvh] w-[90vw]  sm:w-80 z-50 fixed right-0 top-0 bg-white ${
           cart ? "" : "translate-x-full"
