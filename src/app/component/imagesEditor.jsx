@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Image from 'next/image';
 import toast from "react-hot-toast";
+import ScrollLock from "react-scrolllock";
 
 export default function ImagesEditor({editProfile,setEditProfile,data,setProfileMessage,fetchData}) {
      const [saving, setSaving] = useState(false);
@@ -87,6 +88,7 @@ export default function ImagesEditor({editProfile,setEditProfile,data,setProfile
     };
   return (
     <div>
+      {editProfile && <ScrollLock />}
       <div
         className={`fixed right-0 ${
           editProfile ? "" : "translate-y-full"
@@ -100,7 +102,9 @@ export default function ImagesEditor({editProfile,setEditProfile,data,setProfile
           <div className="flex justify-between items-center mt-3">
             <h1 className="text-2xl font-medium">Edit Image</h1>
             <div
-              onClick={() => {setEditProfile(false),fetchData()}}
+              onClick={() => {
+                setEditProfile(false), fetchData();
+              }}
               className="hover:bg-[#f5f5f5] rounded-md p-1 cursor-pointer"
             >
               <svg

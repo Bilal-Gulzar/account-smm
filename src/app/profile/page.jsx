@@ -8,7 +8,7 @@ import LogOut from '../component/logout';
 import { useRouter } from 'next/navigation';
 import { MdOutlineErrorOutline } from "react-icons/md";
 import SkeletonForProfilePage from '../component/skeletonForProfilePage';
-import { document } from 'postcss';
+import ScrollLock from "react-scrolllock";
 var jwt = require("jsonwebtoken");
 
 export default function Profile(){
@@ -159,22 +159,9 @@ export default function Profile(){
     };
   }
 
- useEffect(() => {
-   const handleWindowLoad = () => {
-     document.body.style.overflow = editInfo || editProfile ? "hidden" : "auto";
-   };
-
-   if (typeof window !== "undefined") {
-     window.addEventListener("load", handleWindowLoad);
-     return () => {
-       window.removeEventListener("load", handleWindowLoad);
-     };
-   }
- }, [editInfo, editProfile]);
-
-
   return (
     <main className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen ">
+      {editInfo && <ScrollLock /> || (editProfile && <ScrollLock />)}
       <div>
         <Accountsetitngnavbar />
         {isloading ? (

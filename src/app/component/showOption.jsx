@@ -5,7 +5,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCloseOutline } from "react-icons/io5";
 import { BiSolidHeart } from "react-icons/bi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
+import ScrollLock from "react-scrolllock";
 import Link from 'next/link';
 
 import { useAppContext } from '../contextApi/Accoutsmm';
@@ -72,6 +72,8 @@ setQty(qty - 1);
         showOpt ? "" : "translate-y-full"
       }`}
     >
+      {showOpt && <ScrollLock />}
+
       <div
         className={`w-[92%] sm:w-[380px] shadow-md relative bg-white ${
           showOpt ? "translate-y-0" : "translate-y-full"
@@ -121,7 +123,10 @@ setQty(qty - 1);
             </div>
             {isInWishlist ? (
               <Link href="/wishlist">
-                <div onClick={()=>setShowOpt(false)} className="rounded-md border text-[#e81e1e] border-[#e81e1e]">
+                <div
+                  onClick={() => setShowOpt(false)}
+                  className="rounded-md border text-[#e81e1e] border-[#e81e1e]"
+                >
                   <BiSolidHeart className="m-2 size-6" />
                 </div>
                 {/* <p className='absolute text-sm right-24 top-14  text-green-600 '>Product added to Wishlist</p> */}
@@ -140,11 +145,11 @@ setQty(qty - 1);
                 onClick={handleAddToCart}
                 className="bg-black w-full rounded-md py-2.5 flex justify-center items-center text-white text-sm font-medium px-5 disabled:bg-black/50"
               >
-         {  isloading? 
-            <AiOutlineLoading3Quarters className=" size-4 text-white animate-spin" />
-              :
-              <span> ADD&nbsp;TO CART </span> 
-         }
+                {isloading ? (
+                  <AiOutlineLoading3Quarters className=" size-4 text-white animate-spin" />
+                ) : (
+                  <span> ADD&nbsp;TO CART </span>
+                )}
               </button>
             </div>
           </div>
@@ -157,11 +162,11 @@ setQty(qty - 1);
         >
           <IoCloseOutline className="size-7 m-1.5" />
         </div>
-        {isInWishlist && 
-        <p className="text-sm -mt-9 mb-4 text-center  text-green-600 ">
-          Product added to Wishlist
-        </p>
-}
+        {isInWishlist && (
+          <p className="text-sm -mt-9 mb-4 text-center  text-green-600 ">
+            Product added to Wishlist
+          </p>
+        )}
       </div>
     </section>
   );

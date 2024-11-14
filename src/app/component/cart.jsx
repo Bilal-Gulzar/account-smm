@@ -12,6 +12,7 @@ import Link from "next/link";
 import { GoAlertFill } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
+import ScrollLock from "react-scrolllock";
 
 
 export default function Cart() {
@@ -68,6 +69,8 @@ RemoveFromCart(v)
 
   return (
     <section className={`${cart ? "fixed bg-black/80 inset-0 " : ""}`}>
+      {cart && <ScrollLock />}
+
       <div
         className={`min-h-screen w-[90vw]  sm:w-80 z-50 fixed right-0 top-0 bg-white ${
           cart ? "" : "translate-x-full"
@@ -181,7 +184,7 @@ RemoveFromCart(v)
                   </div>
                 ))}
               </div>
-              <div className="absolute bottom-12 h-[265px] w-full z-50 shadow-inner-top-sm  bg-white px-5 flex flex-col gap-5">
+              <div className="absolute bottom-8 h-[265px] w-full z-50 shadow-inner-top-sm  bg-white px-5 flex flex-col gap-5">
                 <div className="flex  pt-2 font-semibold justify-between">
                   <p>Subtotal:</p>
                   <p>${subtotal}</p>
@@ -193,7 +196,7 @@ RemoveFromCart(v)
                     onChange={() => setCheckbox(!checkbox)}
                     className="accent-black"
                   />
-                  <p className=" text-gray-600 text-sm">
+                  <p className=" text-gray-600 text-xs">
                     I agree with{" "}
                     <Link href="/terms&conditions">
                       <span className="underline text-gray-500 decoration-[0.6px]  ">

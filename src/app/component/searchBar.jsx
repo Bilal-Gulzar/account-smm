@@ -7,7 +7,7 @@ import { GoArrowRight } from "react-icons/go";
 import Link from "next/link";
 import Animation from "./animation";
 import { useRouter } from "next/navigation";
-
+import ScrollLock from "react-scrolllock";
 
 export default function SearchBar() {
   const router = useRouter()
@@ -63,6 +63,7 @@ setQuery('')
 
   return (
     <section className={`${search ? "fixed bg-black/80 inset-0" : ""}`}>
+      {search && <ScrollLock />}
       <div
         className={`min-h-screen sm:ml-0  ml-12 max-w-[900px] z-50 sm:w-80 fixed right-0 top-0 bg-white ${
           search ? "" : "translate-x-full"

@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 // import Image from "next/image";
-import { GrEdit } from "react-icons/gr";
 import { useRouter} from "next/navigation";
 import { MdOutlineErrorOutline } from "react-icons/md";
-var jwt = require("jsonwebtoken");
+import ScrollLock from "react-scrolllock";
 
 function UserPage({ editProfile, setEditProfile,id}) {
   const router = useRouter();
@@ -43,8 +42,10 @@ function UserPage({ editProfile, setEditProfile,id}) {
   const UpadateUserInfo = async (evt) => {
     evt.preventDefault();
     const length = `${phone}`.length;
+    if(length){
     if (length < 11 || length > 11)
       return setCheckNum(true), router.push("###");
+  }
     setCheckNum(false);
     setSaving(true);
 
@@ -80,6 +81,8 @@ function UserPage({ editProfile, setEditProfile,id}) {
             editProfile ? "flex" : " translate-y-full "
           } justify-center left-0 top-0 z-50  backdrop-blur-sm bg-[#666666]/80 w-full h-full items-end md:items-center`}
         >
+          {editProfile && <ScrollLock />}
+
           <div
             className={`${
               editProfile ? "translate-y-0" : "translate-y-full"
@@ -150,7 +153,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="text"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                       className="py-2.5 input-field  px-5 w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -168,7 +171,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="text"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={fName}
                       onChange={(e) => setFName(e.target.value)}
                       className="py-2.5 input-field  px-5 w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -186,7 +189,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="text"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={lName}
                       onChange={(e) => setLName(e.target.value)}
                       className="py-2.5 px-5 input-field w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -204,7 +207,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="text"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       className="py-2.5 px-5 input-field w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -222,7 +225,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="text"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                       className="py-2.5 px-5 input-field w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -240,7 +243,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="text"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={postal}
                       onChange={(e) => setPostal(e.target.value)}
                       className="py-2.5 input-field px-5 w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -258,7 +261,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       type="number"
                       autoComplete="off"
                       placeholder=""
-                      required
+                      // required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="py-2.5 input-field px-5 w-full tex-sm pt-5 border border-gray-300 rounded"
@@ -278,7 +281,9 @@ function UserPage({ editProfile, setEditProfile,id}) {
                       className="accent-black"
                       onChange={() => setAdmin(!admin)}
                     />
-                    <label htmlFor="checkbox" className="text-xs">Admin</label>
+                    <label htmlFor="checkbox" className="text-xs">
+                      Admin
+                    </label>
                   </div>
                 </div>
                 <div className="py-5 flex justify-end ">
