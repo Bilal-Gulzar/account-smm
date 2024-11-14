@@ -14,8 +14,7 @@ import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
 import ScrollLock from "react-scrolllock";
 import { isMobile } from "react-device-detect";
-
-
+import { useEffect } from "react";
 
 export default function Cart() {
   const {
@@ -29,15 +28,17 @@ export default function Cart() {
   } = useAppContext();
   const [checkbox, setCheckbox] = useState(false);
   const [allowed, setAllowed] = useState(false);
-  const [isloading,setIsloading] = useState(false)
-  const [id,setId] = useState('')
+  const [isloading, setIsloading] = useState(false);
+  const [id, setId] = useState("");
   const handleCart = (v) => {
     const fixQty = { ...v, qty: 1 };
     AddTOCart(fixQty);
   };
 
   const payment = async () => {
-    if (!checkbox){ return setAllowed(true),setTimeout(()=>setAllowed(false),5000)}
+    if (!checkbox) {
+      return setAllowed(true), setTimeout(() => setAllowed(false), 5000);
+    }
     // const res = await fetch('/api/checkout/payment',{
     // method: 'POST',
     // headers:{
@@ -53,21 +54,25 @@ export default function Cart() {
     // window.location = response
   };
 
-const  handleloading = ()=>{
-setIsloading(true)
-setTimeout(() => {
-  setIsloading(false)
-}, 1400);
+  const handleloading = () => {
+    setIsloading(true);
+    setTimeout(() => {
+      setIsloading(false);
+    }, 1400);
+  };
 
+  const handleRemoveFromCart = (v) => {
+    setTimeout(() => {
+      RemoveFromCart(v);
+    }, 1400);
+  };
 
-}
-
-const handleRemoveFromCart = (v)=>{
-setTimeout(() => {
-RemoveFromCart(v)  
-}, 1400);
-
-}
+  useEffect(() => {
+    if (cart && isMobile) {
+      // Scroll to the top of the page to hide the address bar
+      window.scrollTo(0, 1);
+    }
+  }, [cart]); // Run
 
   return (
     <>
@@ -260,14 +265,6 @@ RemoveFromCart(v)
           </div>
         </div>
       </section>
-      {isMobile && cart && (
-        <style jsx global>{`
-          body {
-            overflow: hidden;
-            padding-top: 0 !important; /* Hide browser header */
-          }
-        `}</style>
-      )}
     </>
   );
 }
