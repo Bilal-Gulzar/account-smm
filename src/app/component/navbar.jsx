@@ -157,7 +157,7 @@ window.location.reload();
         <div onClick={() => setMenu(true)} className="lg:hidden">
           <HiOutlineMenuAlt1 className="size-7" />
         </div>
-        <div className="relative ml-10 lg:-ml-8">
+        <div className="relative ml-8 lg:-ml-8">
           <Link href="/">
             <Image
               src="/smm.png"
