@@ -13,9 +13,9 @@ import { GoAlertFill } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
 import ScrollLock from "react-scrolllock";
-import { isMobile } from "react-device-detect";
+import screenfull from "screenfull";
 import { useEffect } from "react";
-
+import { isMobile, isTablet } from "react-device-detect";
 export default function Cart() {
   const {
     cart,
@@ -67,15 +67,15 @@ export default function Cart() {
     }, 1400);
   };
 
-  useEffect(() => {
-    if (cart && isMobile) {
-      // Scroll to the top of the page to hide the address bar
-      window.scrollTo(0, 1);
-    }
-  }, [cart]); // Run
+   useEffect(() => {
+     if ((isMobile || isTablet) && cart && screenfull.isEnabled) {
+       screenfull.request();
+     } else if (!cart && screenfull.isEnabled && screenfull.isFullscreen) {
+       screenfull.exit();
+     }
+   }, [cart]);
 
   return (
-    <>
       <section
         className={`${cart ? "fixed bg-black/80 inset-0  min-h-screen " : ""}`}
       >
@@ -265,6 +265,5 @@ export default function Cart() {
           </div>
         </div>
       </section>
-    </>
   );
 }
