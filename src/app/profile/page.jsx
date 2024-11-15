@@ -228,7 +228,7 @@ export default function Profile(){
           <div
             className={`${
               editInfo ? "translate-y-0" : "translate-y-full"
-            } transition-all  duration-200 ease-in w-full md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  md:[462px] px-5 bg-white`}
+            } transition-all  duration-200 ease-in w-full  max-h-[90vh] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  md:[462px] px-5 bg-white`}
           >
             <div className="mt-3 ">
               <div className="flex justify-between items-center">
