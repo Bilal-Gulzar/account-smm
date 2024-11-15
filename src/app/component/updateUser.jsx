@@ -99,7 +99,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
           <div
             className={`${
               editProfile ? "translate-y-0" : "translate-y-full"
-            } transition-all  duration-300 md:duration-200 ease-in w-full  max-h-[85vh] md:h-[350px] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  px-5 bg-white`}
+            } transition-all  duration-300 md:duration-200 ease-in w-full  max-h-[80vh] md:h-[350px] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  px-5 bg-white`}
             ref={scrollableContentRef}
           >
             <div id="##" className="mt-3 ">
