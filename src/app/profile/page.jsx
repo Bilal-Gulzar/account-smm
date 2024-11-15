@@ -1,5 +1,5 @@
 "use client"
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect, useRef } from "react";
 // import Image from 'next/image'
 import { GrEdit } from "react-icons/gr";
 import Link from 'next/link';
@@ -8,7 +8,8 @@ import LogOut from '../component/logout';
 import { useRouter } from 'next/navigation';
 import { MdOutlineErrorOutline } from "react-icons/md";
 import SkeletonForProfilePage from '../component/skeletonForProfilePage';
-import ScrollLock from "react-scrolllock";
+import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
+
 var jwt = require("jsonwebtoken");
 
 export default function Profile(){
@@ -30,6 +31,7 @@ export default function Profile(){
   const [profileMessage, setProfileMessage] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const [isloading, setIsloading] = useState(true);
+  const scrollableContentRef = useRef(null);
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -159,9 +161,24 @@ export default function Profile(){
     };
   }
 
+   useEffect(() => {
+     if (scrollableContentRef.current) {
+       if (!editProfile && !editInfo) {
+         enableBodyScroll(scrollableContentRef.current);
+
+        } else {
+         disableBodyScroll(scrollableContentRef.current);
+       }
+     }
+
+     return () => {
+       enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+     };
+   }, [editInfo,editProfile]);
   return (
-    <main className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen ">
-      {editInfo && <ScrollLock /> || (editProfile && <ScrollLock />)}
+    <main
+      className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen "
+    >
       <div>
         <Accountsetitngnavbar />
         {isloading ? (
@@ -224,11 +241,12 @@ export default function Profile(){
           className={`fixed right-0  overflow-hidden ${
             editInfo ? "flex" : " translate-y-full "
           } justify-center left-0 top-0  backdrop-blur-sm bg-[#666666]/80 w-full h-full  items-end md:items-center z-50`}
-        >
+          >
           <div
             className={`${
               editInfo ? "translate-y-0" : "translate-y-full"
-            } transition-all  duration-200 ease-in w-full  max-h-[90vh] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  md:[462px] px-5 bg-white`}
+            } transition-all  duration-200 ease-in w-full  max-h-[87vh] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md  md:max-h-[465px] px-5 bg-white`}
+            ref={scrollableContentRef}
           >
             <div className="mt-3 ">
               <div className="flex justify-between items-center">
@@ -453,6 +471,7 @@ export default function Profile(){
             className={`${
               editProfile ? "translate-y-0" : "translate-y-full"
             }   duration-200 transition-all ease-in  w-full sm:w-[550px] md:w-[680px] lg:w-[750px] overflow-y-auto hide-scrollbar  sm:rounded-md rounded-t-xl  px-5 bg-white`}
+            ref={scrollableContentRef}
           >
             <div className="flex justify-between items-center mt-3">
               <h1 className="text-2xl font-medium">Edit profile</h1>
