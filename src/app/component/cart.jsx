@@ -12,7 +12,8 @@ import Link from "next/link";
 import { GoAlertFill } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
-import ScrollLock from "react-scrolllock";
+import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
+import { useEffect,useRef } from "react";
 export default function Cart() {
 
   const {
@@ -27,6 +28,7 @@ export default function Cart() {
   const [checkbox, setCheckbox] = useState(false);
   const [allowed, setAllowed] = useState(false);
   const [isloading, setIsloading] = useState(false);
+ const scrollableContentRef = useRef(null);
   const [id, setId] = useState("");
   const handleCart = (v) => {
     const fixQty = { ...v, qty: 1 };
@@ -65,16 +67,30 @@ export default function Cart() {
     }, 1400);
   };
 
+
+  useEffect(() => {
+    if (scrollableContentRef.current) {
+      if (!cart) {
+        enableBodyScroll(scrollableContentRef.current);
+      } else {
+        disableBodyScroll(scrollableContentRef.current);
+      }
+    }
+
+    return () => {
+      enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+    };
+  }, [cart]);
+
   return (
     <section
       className={`${cart ? "fixed bg-black/80 inset-0 min-h-screen" : ""}`}
     >
-      {" "}
-      {/* {cart && <ScrollLock />} */}
       <div
-        className={`min-h-[100svh] w-[90vw]  sm:w-80 z-50 fixed right-0 top-0 bg-white ${
+        className={`min-h-screen w-[90vw]  sm:w-80 z-50 fixed right-0 top-0 bg-white ${
           cart ? "" : "translate-x-full"
         } transition-all duration-500 overflow-x-hidden`}
+        ref={scrollableContentRef}
       >
         <div className="relative">
           <div className="bg-black items-center z-40 flex justify-center relative py-3.5 px-4 text-white text-base">
@@ -111,7 +127,7 @@ export default function Cart() {
           )}
           {shoppingCart.length > 0 && (
             <div>
-              <div className="mx-4 pt-5 h-[100vh] pb-80 flex flex-col gap-2 hide-scrollbar bg-white overflow-y-auto overflow-x-hidden ">
+              <div className="mx-4 pt-5 height pb-80 flex flex-col gap-2 hide-scrollbar bg-white overflow-y-auto overflow-x-hidden ">
                 {shoppingCart.map((v) => (
                   <div key={v._id} className="flex gap-4">
                     <div className="min-w-28 min-h-36 bg-gray-100 relative">

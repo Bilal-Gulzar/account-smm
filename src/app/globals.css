@@ -14,16 +14,6 @@
   scrollbar-width: none;     /* Firefox */
 }
 
-.no-scroll {
-  overflow: hidden;
-  height: 100%; /* Ensures no scrollbars appear on the entire body */
-}
-
-.min-height{
-min-height: 100vh;
-min-height: 100dvh;
-}
-
 
 /* .input-field:focus ~ .floating-label,
 .input-field:not(:placeholder-shown).input-field:not(:focus) ~ .floating-label {
@@ -37,6 +27,10 @@ line-height: 16px;
 top: 16px;
 }
 
+.height{
+height: 100vh;
+height: 100dvh;
+}
 
 @layer utilities {
   .shadow-top-md {

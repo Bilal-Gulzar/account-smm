@@ -5,7 +5,7 @@ import ScrollLock from "react-scrolllock";
 export default function Delete({deleteAccount,prop,id,deleteMenu}) {
   return (
     <section
-      className={`min-w-[100%] flex justify-center z-50 items-end sm:items-center min-h-screen fixed  backdrop-blur-sm bg-[#666666]/80 ${
+      className={`min-w-[100%] flex justify-center z-50 items-end sm:items-center height fixed  backdrop-blur-sm bg-[#666666]/80 ${
         deleteMenu ? "translate-y-0" : "translate-y-full"
       }`}
     >

@@ -441,13 +441,13 @@ export default function EditAccount({ params }) {
                 </form>
               </div>
             </section>
+          </div>
             <Delete
               deleteAccount={deleteAccount}
               id={id}
               prop={setDeleteaccount}
               deleteMenu={deleteaccount}
             />
-          </div>
           <div className="border-t lg:container lg:mx-auto px-5  text-xs flex lg:flex-row flex-col items-center  underline gap-7 py-8 w-full  border-gray-300 mt-14">
             <Link href="/exchange&return">
               <div>Return & Exchange</div>

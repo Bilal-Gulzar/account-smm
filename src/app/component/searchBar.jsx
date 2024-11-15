@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useAppContext } from "@/app/contextApi/Accoutsmm";
 import Image from "next/image";
@@ -7,8 +7,7 @@ import { GoArrowRight } from "react-icons/go";
 import Link from "next/link";
 import Animation from "./animation";
 import { useRouter } from "next/navigation";
-import ScrollLock from "react-scrolllock";
-
+import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 export default function SearchBar() {
   const router = useRouter()
   const { search, setSearch } = useAppContext();
@@ -16,6 +15,8 @@ export default function SearchBar() {
   const [query,setQuery] = useState('')
   const [result,setResult] = useState([])
   const [animate,setAnimate] = useState(false)
+ const scrollableContentRef = useRef(null);
+
   useEffect(()=>{
   
 fetch('/api/Accounts').then((res)=>res.json()).then((data)=>{
@@ -61,13 +62,28 @@ setSearch(false)
 setQuery('')
 }
 
+
+  useEffect(() => {
+    if (scrollableContentRef.current) {
+      if (!search) {
+        enableBodyScroll(scrollableContentRef.current);
+      } else {
+        disableBodyScroll(scrollableContentRef.current);
+      }
+    }
+
+    return () => {
+      enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+    };
+  }, [search]);
+
   return (
-    <section className={`${search ? "fixed bg-black/80 inset-0" : ""}`}>
-      {search && <ScrollLock />}
+    <section className={`${search ? "fixed bg-black/80 inset-0 " : ""}`}>
       <div
         className={`min-h-screen sm:ml-0  ml-12 max-w-[900px] z-50 sm:w-80 fixed right-0 top-0 bg-white ${
           search ? "" : "translate-x-full"
         } transition-all duration-500`}
+        ref={scrollableContentRef}
       >
         <div className="bg-black items-center flex justify-between py-3 px-4 text-white text-lg">
           <p>SEARCH OUR SITE</p>
@@ -114,7 +130,7 @@ setQuery('')
           <span className="hidden">need some verified account</span>
         </div>
         {result?.length > 0 && query !== "" && (
-          <div className="pl-5 overflow-y-auto h-screen  hide-scrollbar pb-[17.5rem]">
+          <div className="pl-5 overflow-y-auto height hide-scrollbar pb-[17.5rem]">
             {result.map((v) => (
               <div key={v._id} className="mt-3  gap-3 flex">
                 <Link href={`/account/${v._id}`}>
@@ -148,7 +164,7 @@ setQuery('')
             <Animation />
           </div>
         )}
-        <div className="pl-5 overflow-y-auto h-screen  hide-scrollbar pb-[17.5rem]">
+        <div className="pl-5 overflow-y-auto height hide-scrollbar pb-[17.5rem]">
           {fiveData?.length > 0 &&
             query === "" &&
             fiveData.map((v, index) => (

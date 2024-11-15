@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import Image from "next/image";
 import { useRouter} from "next/navigation";
 import { MdOutlineErrorOutline } from "react-icons/md";
-import ScrollLock from "react-scrolllock";
-
+import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 function UserPage({ editProfile, setEditProfile,id}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -19,6 +18,8 @@ function UserPage({ editProfile, setEditProfile,id}) {
   const [saving, setSaving] = useState(false);
   const [checkNum, setCheckNum] = useState(false);
   const [profileMessage, setProfileMessage] = useState(false);
+ const scrollableContentRef = useRef(null);
+
   const fetchingData = () => {
     fetch("/api/profile?id=" + id)
       .then((res) => res.json())
@@ -73,6 +74,20 @@ function UserPage({ editProfile, setEditProfile,id}) {
     }, 1500);
   };
 
+   useEffect(() => {
+     if (scrollableContentRef.current) {
+       if (!editProfile) {
+         enableBodyScroll(scrollableContentRef.current);
+       } else {
+         disableBodyScroll(scrollableContentRef.current);
+       }
+     }
+
+     return () => {
+       enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+     };
+   }, [editProfile]);
+
   return (
     <div>
       <section>
@@ -81,12 +96,11 @@ function UserPage({ editProfile, setEditProfile,id}) {
             editProfile ? "flex" : " translate-y-full "
           } justify-center left-0 top-0 z-50  backdrop-blur-sm bg-[#666666]/80 w-full h-full items-end md:items-center`}
         >
-          {editProfile && <ScrollLock />}
-
           <div
             className={`${
               editProfile ? "translate-y-0" : "translate-y-full"
-            } transition-all  duration-300 md:duration-200 ease-in w-full   md:h-[340px] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md md:[462px] px-5 bg-white`}
+            } transition-all  duration-300 md:duration-200 ease-in w-full max-h-[80vh] md:h-[340px] md:w-[690px] lg:w-[750px] overflow-y-auto hide-scrollbar rounded-t-xl md:rounded-md md:[462px] px-5 bg-white`}
+            ref={scrollableContentRef}
           >
             <div id="##" className="mt-3 ">
               <div className="flex justify-between items-center">

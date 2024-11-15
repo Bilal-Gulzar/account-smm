@@ -135,7 +135,7 @@ export default function Accountsetitngnavbar() {
                 {showdiv && <MdOutlineKeyboardArrowUp />}
                 {!showdiv && <MdOutlineKeyboardArrowDown />}
               </div>
-              <Div isTrue={showdiv} setIsTrue={setShowdiv} />
+              <Div/>
             </div>
             <Link href="/">
               <div className="md:block hidden p-3 hover:bg-[#acabab] cursor-pointer rounded-md bg-[#C7C6C6]">

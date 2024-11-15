@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${Mont.className} ${geistSans.variable} ${geistMono.variable}  antialiased`}
+        className={`${Mont.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppWrapper>
           <div className="flex flex-col min-h-screen justify-between">

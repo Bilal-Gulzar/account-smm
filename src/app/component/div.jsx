@@ -3,17 +3,17 @@ import React from "react";
 import { useAppContext } from "../contextApi/Accoutsmm";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ShowToAdmin from "./showToAdmin";
+import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 var jwt = require("jsonwebtoken");
-
-export default function Div({ isTrue, setIsTrue }) {
+export default function Div() {
   const path = usePathname();
-
-  const { Logout } = useAppContext();
+  const { Logout, showdiv, setShowdiv } = useAppContext();
   const [letter, setLetter] = useState("");
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
+ const scrollableContentRef = useRef(null);
   const [admin, setAdmin] = useState(false);
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -45,12 +45,28 @@ export default function Div({ isTrue, setIsTrue }) {
     }
   }, []);
 
+
+    useEffect(() => {
+      if (scrollableContentRef.current) {
+        if (!showdiv) {
+          enableBodyScroll(scrollableContentRef.current);
+        } else {
+          disableBodyScroll(scrollableContentRef.current);
+        }
+      }
+
+      return () => {
+        enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+      };
+    }, [showdiv]);
+
   return (
     <>
       <section
         className={`${
-          isTrue ? "md:block hidden" : "hidden"
+          showdiv ? "md:block hidden" : "hidden"
         } absolute px-6 w-[300px] bg-white z-20 shadow-bottom  top-16 shadow-lg -right-36 lg:-right-44 cursor-default`}
+        ref={scrollableContentRef}
       >
         <div className="flex gap-3 items-center text-sm text-gray-500 border-b pt-3 border-gray-300  pb-4">
           <div className="">
@@ -117,12 +133,12 @@ export default function Div({ isTrue, setIsTrue }) {
           </div>
         </div>
         {path.includes("admin") ? (
-          <ShowToAdmin setIsTrue={setIsTrue} />
+          <ShowToAdmin setShowdiv={setShowdiv} />
         ) : (
           <div className="flex flex-col text-sm text gap-3 py-5  ">
             <Link href="/profile">
               <p
-                onClick={() => setIsTrue(false)}
+                onClick={() => setShowdiv(false)}
                 className={`hover:bg-[#f5f5f5] p-2.5 ${
                   path.includes("/profile") ? "underline" : "no-underline"
                 }`}
@@ -132,7 +148,7 @@ export default function Div({ isTrue, setIsTrue }) {
             </Link>
             <Link href="/logoutSetting">
               <p
-                onClick={() => setIsTrue(false)}
+                onClick={() => setShowdiv(false)}
                 className={`hover:bg-[#f5f5f5] p-2.5  ${
                   path.includes("/logoutSetting") ? "underline" : "no-underline"
                 }`}
@@ -146,24 +162,25 @@ export default function Div({ isTrue, setIsTrue }) {
             >
               Log out
             </p>
-            {admin &&
-            <Link href="/admin/accountPanel">
-              <p
-                onClick={() => setIsTrue(false)}
-                className="hover:bg-[#f5f5f5] p-2.5"
-              >
-                Admin
-              </p>
-            </Link>
-}
+            {admin && (
+              <Link href="/admin/accountPanel">
+                <p
+                  onClick={() => setShowdiv(false)}
+                  className="hover:bg-[#f5f5f5] p-2.5"
+                >
+                  Admin
+                </p>
+              </Link>
+            )}
           </div>
         )}
       </section>
 
       <section
-        className={` min-h-screen transition-all duration-500 overflow-x-hidden border-t border-gray-500 bg-white fixed px-3 left-0 top-[120px] bottom-0 z-30  w-[80vw] md:hidden ${
-          isTrue ? "" : "-translate-x-full"
+        className={`min-h-screen transition-all duration-500 overflow-x-hidden border-t border-gray-500 bg-white fixed px-3 left-0 top-[120px] bottom-0 z-30  w-[80vw] md:hidden ${
+          showdiv ? "" : "-translate-x-full"
         }  `}
+        ref={scrollableContentRef}
       >
         <div className="flex gap-3 items-center text-sm text-gray-500 border-b py-6 border-gray-300  ">
           <div className="">
@@ -239,7 +256,7 @@ export default function Div({ isTrue, setIsTrue }) {
           </div>
         </Link>
         {path.includes("admin") ? (
-          <ShowToAdmin />
+          <ShowToAdmin setShowdiv={setShowdiv} />
         ) : (
           <div className="flex  flex-col text-sm text gap-3 py-5  ">
             <Link href="/profile">
@@ -263,11 +280,11 @@ export default function Div({ isTrue, setIsTrue }) {
             <p onClick={Logout} className="hover:bg-[#f5f5f5] p-2.5">
               Log out
             </p>
-            {admin &&
-            <Link href="/admin/accountPanel">
-              <p className="hover:bg-[#f5f5f5] p-2.5">Admin</p>
-            </Link>
-}
+            {admin && (
+              <Link href="/admin/accountPanel">
+                <p className="hover:bg-[#f5f5f5] p-2.5">Admin</p>
+              </Link>
+            )}
           </div>
         )}
       </section>
