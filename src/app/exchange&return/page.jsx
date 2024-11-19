@@ -49,9 +49,7 @@ export default function ExhangeAndReturn() {
           </ol>
         </div>
         <div className="px-5 lg:px-0">
-          <h2 className="font-medium text-sm mt-5 ">
-            &bull; Exchange Process
-          </h2>
+          <h2 className="font-medium text-sm mt-5 ">&bull; Exchange Process</h2>
           <p className="font-light text-sm mt-1">
             If you are eligible for an exchange, follow these steps:
           </p>
@@ -60,7 +58,7 @@ export default function ExhangeAndReturn() {
               <span className="font-medium"> Contact Us:</span> Send an email to
               <span className="text-[#3b82f6] font-normal">
                 {" "}
-                support@accountsmm.com
+                Egzk.Zesh@gmail.com
               </span>{" "}
               or contact our support team via the website with details of the
               issue.
@@ -78,9 +76,7 @@ export default function ExhangeAndReturn() {
           </ul>
         </div>
         <div className="px-5 lg:px-0">
-          <h2 className="font-medium text-sm mt-5 ">
-            &bull; No Refund Policy
-          </h2>
+          <h2 className="font-medium text-sm mt-5 ">&bull; No Refund Policy</h2>
           <p className="text-sm font-light mt-1">
             We do not offer refunds for any of the verified accounts sold on
             AccountsMM. Once an account is delivered, all sales are final.
@@ -99,7 +95,7 @@ export default function ExhangeAndReturn() {
             <li>
               <span className="font-medium">Email:</span>{" "}
               <span className="text-[#3b82f6] font-normal">
-                support@accountsmm.com
+                Egzk.Zesh@gmail.com
               </span>
             </li>
             <li className="mt-2">

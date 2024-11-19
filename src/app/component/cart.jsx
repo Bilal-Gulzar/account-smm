@@ -14,8 +14,10 @@ import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
 import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 import { useEffect,useRef } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 export default function Cart() {
-
+const router = useRouter()
   const {
     cart,
     setCart,
@@ -25,6 +27,7 @@ export default function Cart() {
     RemoveFromCart,
     DecreaseQuantity,
   } = useAppContext();
+  // const [buttonDisable, setButtonDisable] = useState(false);
   const [checkbox, setCheckbox] = useState(false);
   const [allowed, setAllowed] = useState(false);
   const [isloading, setIsloading] = useState(false);
@@ -35,23 +38,22 @@ export default function Cart() {
     AddTOCart(fixQty);
   };
 
+ useEffect(() => {
+   const timer = setTimeout(() => {
+      setAllowed(false); // Hide element after 5 seconds
+   }, 5000);
+
+   return () => clearTimeout(timer); // Cleanup the timer
+ }, [allowed]);
+
+
   const payment = async () => {
     if (!checkbox) {
-      return setAllowed(true), setTimeout(() => setAllowed(false), 5000);
+      return setAllowed(true);
     }
-    // const res = await fetch('/api/checkout/payment',{
-    // method: 'POST',
-    // headers:{
-    // 'Content-Type' : 'application/json'
-
-    // },
-
-    // body: JSON.stringify(shoppingCart)
-
-    // })
-
-    // let response = await res.json()
-    // window.location = response
+  setCart(false)
+  router.push('/cart')
+  
   };
 
   const handleloading = () => {
@@ -78,7 +80,9 @@ export default function Cart() {
     }
 
     return () => {
-      enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+       if (scrollableContentRef.current) {
+         enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+       };
     };
   }, [cart]);
 
@@ -230,7 +234,7 @@ export default function Cart() {
                   </button>
                   <button
                     onClick={payment}
-                    className="bg-black hover:bg-black/80  rounded-md py-2.5"
+                    className="bg-black hover:bg-black/80  disabled:bg-[#acabab] rounded-md py-2.5"
                   >
                     CHECK OUT
                   </button>

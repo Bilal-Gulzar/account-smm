@@ -84,7 +84,9 @@ function UserPage({ editProfile, setEditProfile,id}) {
      }
 
      return () => {
+        if (scrollableContentRef.current) {
        enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+     }
      };
    }, [editProfile]);
 
@@ -254,7 +256,7 @@ function UserPage({ editProfile, setEditProfile,id}) {
                   <div className="relative">
                     <input
                       id="postalcode"
-                      type="text"
+                      type="number"
                       autoComplete="off"
                       placeholder=""
                       // required

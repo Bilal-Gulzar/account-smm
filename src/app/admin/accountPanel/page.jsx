@@ -81,7 +81,7 @@ export default function EditAccount() {
               <div className=" w-full  grid grid-cols-2 gap-3 md:grid-cols-3">
                 {skeleton.map((_, i) => (
                   <div key={i} className="bg-white pb-4 flex flex-col gap-5">
-                    <Skeleton className="w-full h-40 sm:h-52" />
+                    <Skeleton className="w-full h-48 sm:h-52" />
                     <div className="flex gap-5 justify-between px-1">
                       <Skeleton className="w-36 sm:w-40 h-5 " />
                       <Skeleton className="w-12 h-5 " />
@@ -94,7 +94,7 @@ export default function EditAccount() {
               </div>
             </div>
           ) : (
-             data.length > 0 && (
+            data.length > 0 && (
               <div className="sm:w-[36rem]  relative mx-5 sm:mx-auto mt-14 lg:w-[47rem]">
                 <p className="absolute  font-medium  -top-6 left-0 text-gray-600 text-sm ">
                   Edit Account:
@@ -112,12 +112,12 @@ export default function EditAccount() {
                             key={x._id}
                             className="pb-3 bg-white flex-col relative justify-center  flex items-center gap-2"
                           >
-                            <div className=" bg-gray-100 border-none w-full  relative h-40 sm:h-52 mb-1">
+                            <div className=" bg-gray-100 border-none w-full  relative h-48 sm:h-52 mb-1">
                               <Image
                                 src={x.img}
                                 fill
                                 alt={x.accountName}
-                                sizes="100vw"
+                                sizes="(min-width: 808px) 50vw, 100vw"
                                 priority
                               />
                             </div>

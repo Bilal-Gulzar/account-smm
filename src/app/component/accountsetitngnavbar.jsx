@@ -38,7 +38,7 @@ export default function Accountsetitngnavbar() {
 
 // console.log(a.split("").charAt(0));
   return (
-    <section className='sticky  top-0 bg-white z-40'>
+    <section className="sticky  top-0 bg-white z-40">
       <div className="">
         <div className="lg:mx-auto  flex px-5 lg:max-w-[1200px] lg:px-14 justify-between items-center py-6">
           <div onClick={() => setShowdiv(!showdiv)} className="md:hidden">
@@ -50,7 +50,7 @@ export default function Accountsetitngnavbar() {
             <Div isTrue={showdiv} />
           </div>
           <div className="flex gap-8 items-center ">
-            <div className="relative">
+            <div onClick={() => setShowdiv(false)} className="relative">
               <Link href="/">
                 <Image
                   src="/smm.png"
@@ -64,6 +64,7 @@ export default function Accountsetitngnavbar() {
             </div>
             <Link href="/orders" className=" md:block hidden">
               <p
+                onClick={() => setShowdiv(false)}
                 className={`${
                   path.includes("/orders") ? "underline" : "no-underline"
                 } py-2 px-4  rounded-md hover:bg-[#f5f5f5]`}
@@ -135,15 +136,18 @@ export default function Accountsetitngnavbar() {
                 {showdiv && <MdOutlineKeyboardArrowUp />}
                 {!showdiv && <MdOutlineKeyboardArrowDown />}
               </div>
-              <Div/>
+              <Div />
             </div>
             <Link href="/">
-              <div className="md:block hidden p-3 hover:bg-[#acabab] cursor-pointer rounded-md bg-[#C7C6C6]">
+              <div
+                onClick={() => setShowdiv(false)}
+                className="md:block hidden p-3 hover:bg-[#acabab] cursor-pointer rounded-md bg-[#C7C6C6]"
+              >
                 Go to store
               </div>
             </Link>
           </div>
-          <div className="md:hidden">
+          <div onClick={() => setShowdiv(false)} className="md:hidden">
             <Link href="/">
               <AiTwotoneShop className="size-6 text-gray-500" />
             </Link>

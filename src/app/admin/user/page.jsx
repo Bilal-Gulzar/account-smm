@@ -91,7 +91,7 @@ function Next_Auth() {
 
                     <button
                       onClick={() => handleUpdate(v._id)}
-                      className="bg-gray-100 border-gray-400 border text-gray-900 w-[53px] py-1 rounded-md  flex justify-center items-center font-bold  outline-none"
+                      className="bg-gray-100 border-gray-400 border text-gray-900 min-w-[53px] py-1 rounded-md  flex justify-center items-center font-bold  outline-none"
                     >
                       Edit
                     </button>

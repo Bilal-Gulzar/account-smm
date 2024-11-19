@@ -41,7 +41,7 @@ export default async function CryptoAccount({ searchParams }) {
   return (
     <>
       {getData.totalPosts !== 0 ? (
-        <mian>
+        <main>
           {condition ? (
             <GraterThanTotalPage />
           ) : (
@@ -64,7 +64,7 @@ export default async function CryptoAccount({ searchParams }) {
                 </p>
               </div>
 
-              <div className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0 xl:px-2  mt-5">
+              <div className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-1 xl:px-2  mt-5">
                 {getData?.accounts.length > 0 &&
                   getData.accounts.map((v) => (
                     <div
@@ -72,15 +72,15 @@ export default async function CryptoAccount({ searchParams }) {
                       className="hover:shadow-lg  w-auto mt-2 flex flex-col"
                     >
                       <Link href={`/account/${v._id}`}>
-                        <div className="w-full bg-gray-100 relative">
+                        <div className="relative h-48 sm:h-64 2xl:h-[300px] bg-gray-100">
+                          {v.img &&
                           <Image
                             src={v.img}
-                            width={900}
-                            height={900}
+                            fill
+                            sizes="(min-width: 808px) 50vw, 100vw"
                             alt={v.accountName}
-                            quality={100}
                             priority
-                          />
+                          />}
                         </div>
                       </Link>
                       <div className="mt-3 ml-2 flex items-center justify-between">
@@ -110,7 +110,7 @@ export default async function CryptoAccount({ searchParams }) {
               />
             </main>
           )}
-        </mian>
+        </main>
       ) : (
         <OutOfStock />
       )}

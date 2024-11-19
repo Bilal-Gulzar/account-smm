@@ -164,10 +164,10 @@ export default function EditAccount({ params }) {
 
       if (res.ok){
         router.push("/admin/accountPanel")
-        setDeleteMenu(false);
+       setDeleteaccount(false);
         resolve();
       } else {
-        setDeleteMenu(false);
+        setDeleteaccount(false);
         reject();
       }
       await toast.promise(deleting, {

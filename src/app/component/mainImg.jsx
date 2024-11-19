@@ -51,9 +51,9 @@ export default function MainImg({DynamicImg}) {
  }, [images]);
 
   return (
-    <section>
+    <section className="max-w-[2700px] mx-auto">
       <div className="relative pb-2">
-        <div className="relative w-full h-[70vw] sm:h-[50vw] lg:h-[43vw]">
+        <div className="relative  w-full h-[370px] sm:h-[50vw] lg:h-[43vw]">
           {update && (
             <Image
               src={update}
@@ -64,8 +64,17 @@ export default function MainImg({DynamicImg}) {
               priority
             />
           )}
+          {update && (
+            <Image
+              src={update}
+              fill
+              sizes="(min-width: 808px) 50vw, 100vw"
+              alt="verified account"
+              priority
+            />
+          )}
           {!update && (
-            <div className="w-full flex justify-center items-center h-[70vw] sm:h-[50vw] lg:h-[43vw] bg-gray-100">
+            <div className="w-full flex justify-center items-center h-[370px] sm:h-[50vw] lg:h-[43vw] bg-gray-100">
               <InfinitySpin
                 visible={true}
                 width="200"
@@ -75,20 +84,20 @@ export default function MainImg({DynamicImg}) {
             </div>
           )}
         </div>
-        {update &&
-        <div className="absolute top-[45%] md:top-[50%] left-4  cursor-pointer rounded-full lg:w-10 lg:h-10 w-8 h-8  ">
-          <span onClick={BackImg}>
-            <SlArrowLeft className="text-black lg:size-5 size-4 lg:ml-[7px] ml-[5px]  lg:mt-[9px] md:mt-[7px] " />
-          </span>
-        </div>
-}      
-       {update &&
-        <div className="absolute top-[45%] md:top-[50%] right-4 cursor-pointer rounded-full w-8 h-8 lg:w-10 lg:h-10 ">
-          <span onClick={ForwardImg}>
-            <SlArrowRight className=" text-black font-light size-4 lg:size-5 lg:ml-[11px] lg:mt-[9px] md:mt-[7px] ml-[8px]" />
-          </span>
-        </div>
-}
+        {update && (
+          <div className="absolute top-[45%] md:top-[50%] left-4  cursor-pointer rounded-full lg:w-10 lg:h-10 w-8 h-8  ">
+            <span onClick={BackImg}>
+              <SlArrowLeft className="text-black lg:size-5 size-4 lg:ml-[7px] ml-[5px]  lg:mt-[9px] md:mt-[7px] " />
+            </span>
+          </div>
+        )}
+        {update && (
+          <div className="absolute top-[45%] md:top-[50%] right-4 cursor-pointer rounded-full w-8 h-8 lg:w-10 lg:h-10 ">
+            <span onClick={ForwardImg}>
+              <SlArrowRight className=" text-black font-light size-4 lg:size-5 lg:ml-[11px] lg:mt-[9px] md:mt-[7px] ml-[8px]" />
+            </span>
+          </div>
+        )}
         <div className="flex gap-1.5 justify-center w-full absolute bottom-7 ">
           {images.map((v, i) =>
             v == update ? (

@@ -42,7 +42,6 @@ useEffect(()=>{
       console.error("Error fetching images:", error);
     }
   };
-
   const skeleton = Array.from({length:6})
   return (
     <main className="pb-10">
@@ -50,7 +49,7 @@ useEffect(()=>{
       <MainImg DynamicImg={dyImg} />
       <WhatsNew images={images} />
 
-      <div className="lg:container grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-0 xl:px-1  mt-5">
+      <div className="lg:container grid grid-cols-2 md:grid-cols-3  lg:grid-cols-3 gap-3 hide-scrollbar overflow-x-auto mx-auto px-3 lg:px-1 xl:px-1  mt-5">
         {eachData?.length > 0
           ? eachData.map((v) => (
               <div
@@ -58,25 +57,17 @@ useEffect(()=>{
                 className="hover:shadow-lg   w-auto mt-2 flex flex-col"
               >
                 <Link href={`/account/${v._id}`}>
-                  <div className="w-full md:block hidden h-64 lg:h-72 xl:h-96 2xl:h-[27rem] bg-gray-100 relative">
-                    <Image
-                      src={v.img}
-                      fill
-                      sizes="100vw"
-                      alt={v.accountName}
-                      quality={100}
-                      priority
-                    />
+                  <div className="h-48 sm:h-64 lg:h-72 xl:h-96 2xl:h-[27rem] bg-gray-100 relative">
+                    {v.img && (
+                      <Image
+                        src={v.img}
+                        fill
+                        sizes="(min-width: 808px) 50vw, 100vw"
+                        alt={v.accountName}
+                        priority
+                      />
+                    )}
                   </div>
-                  <Image
-                    src={v.img}
-                    width={900}
-                    height={900}
-                    alt={v.accountName}
-                    quality={100}
-                    className="md:hidden bg-gray-100"
-                    priority
-                  />
                 </Link>
                 <div className="mt-3 ml-2 flex items-center justify-between">
                   <div className="flex flex-col gap-1.5">
@@ -106,36 +97,32 @@ useEffect(()=>{
               </div>
             ))}
       </div>
-      <div className="mt-14">
+      <div className="mt-14 max-w-[2700px] mx-auto ">
         <h1 className="text-2xl sm:text-4xl font-semibold text-center ">
           Trusted and and verified Exchanges & payment Gateways{" "}
         </h1>
-        <div className="relative  overflow-x-hidden mt-5 flex flex-col sm:flex-row gap-3 px-0.5">
-          <div>
+        <div className=" overflow-x-hidden mt-5 grid sm:grid-cols-2 gap-3 px-0.5">
+          <div className="relative  2xl:h-[1000px] lg:h-[600px] h-[400px] sm:h-[350px]">
             <Image
               src="/img3.webp"
-              width={900}
-              quality={100}
-              height={900}
-              sizes="auto"
+              fill
+              sizes="(min-width: 808px) 50vw, 100vw"
               priority
               alt="trust of account smm"
             />
           </div>
-          <div>
+          <div className="relative 2xl:h-[1000px] lg:h-[600px] h-[400px] sm:h-[350px]">
             <Image
               src="/img4.webp"
-              width={900}
-              height={900}
-              quality={100}
-              sizes="auto"
+              fill
+              sizes="(min-width: 808px) 50vw, 100vw"
               priority
               alt="trust of account smm"
             />
           </div>
         </div>
       </div>
-      <div className="mt-8 px-4 sm:pl-8">
+      <div className="mt-8 px-4 sm:pl-8 max-w-[2700px] mx-auto ">
         <h2 className=" text-center text-4xl font-semibold">
           30-Day Return and Replace Warranty at AccountsSMM 🛡
         </h2>
@@ -189,14 +176,14 @@ useEffect(()=>{
           </p>
         </div>
       </div>
-      <div className="relative mt-9 p-3">
+      <div className="relative mt-9 p-3 max-w-[2700px] mx-auto ">
         <h1 className="text-center text-3xl font-medium">@AccountsSMM</h1>
         <Image
           src="/greenImg.webp"
           width={150}
           height={150}
           alt="@accountSMM"
-          className="w-full h-auto"
+          className="w-full h-[450px] sm:h-auto"
           sizes="100vw"
           priority
         />

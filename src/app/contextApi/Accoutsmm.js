@@ -254,6 +254,7 @@ export function AppWrapper({ children }) {
 
   const ClearCart = () => {
     setShoppingCart([]); // Set the shopping cart to an empty array
+    setWishlist([]);
     localStorage.removeItem("shoppingCart"); // Remove the shopping cart from local storage
     localStorage.removeItem("subtotal"); // Optionally, remove the subtotal from local storage
     localStorage.removeItem("wishlist")

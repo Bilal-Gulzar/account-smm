@@ -13,6 +13,8 @@ import { ImSpinner8 } from "react-icons/im";
 import { FaMinus } from "react-icons/fa";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from 'next/navigation';
+import UserOrderInfo from '../component/UserOrderInfo';
+import toast from "react-hot-toast";
 
 export default function Cart() {
 const { shoppingCart, subtotal, AddTOCart, DecreaseQuantity,RemoveFromCart } = useAppContext();
@@ -21,9 +23,11 @@ const router = useRouter()
    const fixQty = { ...v, qty: 1 }
    AddTOCart(fixQty);
  };
-
-  const [checkbox,setCheckbox] = useState(false)
+  const [getInfo,setGetInfo] = useState(false)
+  const [checkbox,setCheckbox] = useState(true)
   const [isloading, setIsloading] = useState(false);
+  const [buttonDisable, setButtonDisable] = useState(false);
+  const [allowed, setAllowed] = useState(false);
   const [id, setId] = useState("");
   const [showSkel,setShowskel] = useState(true)
 const handleloading = () => {
@@ -49,6 +53,50 @@ useEffect(()=>{
   setShowskel(false)
   },1500)
 },[])
+
+
+ useEffect(() => {
+   const timer = setTimeout(() => {
+     setAllowed(false); // Hide element after 5 seconds
+   }, 5000);
+
+   return () => clearTimeout(timer); // Cleanup the timer
+ }, [allowed]);
+
+
+  const payment = async () => {
+    if (!checkbox) {
+      return setAllowed(true);
+    }
+    setGetInfo(true);
+  };
+
+const proceedToCheckout = async(email,name, address,postal,city,phone,country) => {
+  setButtonDisable(true)
+ const data = {shoppingCart ,email,name ,address, postal, city, phone, country };
+   let promise = new Promise(async (resolve, reject) => {
+     let res = await fetch("/api/checkout/payment", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(data),
+     });
+     setButtonDisable(false)
+     if (res.ok) {
+       window.location = await res.json();
+       resolve();
+     } else {
+       reject();
+     }
+   });
+ await toast.promise(promise,{
+loading: 'Preparing your order...',
+success: 'Redirecting to payment... ',
+error: 'something went wrong... Please try again Later'
+ })
+
+ };
 
 const skeleton = Array.from({length:2})
   return (
@@ -99,7 +147,7 @@ const skeleton = Array.from({length:2})
                     src={v.img}
                     fill
                     className="w-full h-full"
-                    sizes="100vw"
+                    sizes="(min-width: 808px) 50vw, 100vw"
                     alt={v.accountName}
                     priority
                   />
@@ -208,8 +256,8 @@ const skeleton = Array.from({length:2})
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                value={checkbox}
-                onClick={(e) => setCheckbox(e.target.value)}
+                checked={checkbox}
+                onChange={() => setCheckbox(!checkbox)}
                 className="accent-black"
               />
               <p className="font-light text-sm">
@@ -221,8 +269,13 @@ const skeleton = Array.from({length:2})
                 </Link>
               </p>
             </div>
-            <div className="mb-10  bg-pink-100  justify-end md:flex  hidden">
-              <button className="font-semibold flex items-center gap-1 bg-black text-white rounded-xl py-2 px-7">
+            <div className="mb-10   justify-end md:flex  hidden">
+              <button
+                disabled={buttonDisable}
+                type="button"
+                onClick={payment}
+                className="disabled:bg-[#acabab] font-semibold hover:bg-black/80 flex items-center gap-1 bg-black text-white rounded-xl py-2 px-7"
+              >
                 <span>
                   <TbShoppingCartCopy className="" />
                 </span>
@@ -231,7 +284,13 @@ const skeleton = Array.from({length:2})
             </div>
           </div>
           <div className="md:hidden my-9">
-            <button className="font-semibold w-full flex items-center justify-center gap-1 bg-black text-white rounded-xl py-2 px-7">
+            <button
+              disabled={buttonDisable}
+              type="button"
+              // onClick={() => setGetInfo(true)}
+              onClick={payment}
+              className="font-semibold w-full flex items-center justify-center gap-1 hover:bg-black/80 bg-black text-white rounded-xl py-2 px-7 disabled:bg-[#acabab]"
+            >
               <span>
                 <TbShoppingCartCopy className="" />
               </span>
@@ -241,10 +300,10 @@ const skeleton = Array.from({length:2})
 
           <div
             className={`bg-[#e0b252] fixed left-0 right-0 flex items-center  text-white bottom-0   text-sm tracking-wide px-8 z-50 py-5 gap-3 ${
-              checkbox ? "" : "hidden"
+              allowed ? "" : "hidden"
             } transform translate-y-full animate-slide-up`}
           >
-            <div class="absolute h-[3.5px] bg-[#a8853d] top-0 animate-loading-line"></div>
+            <div className="absolute h-[3.5px] bg-[#a8853d] top-0 animate-loading-line"></div>
             <span>
               <GoAlertFill className="size-5" />
             </span>
@@ -253,7 +312,7 @@ const skeleton = Array.from({length:2})
               out.
             </p>
             <div
-              onClick={() => setCheckbox(false)}
+              onClick={() => setAllowed(false)}
               className="cursor-pointer absolute right-0  w-16 h-full flex justify-center items-center bg-[#c9a04a]"
             >
               <IoMdClose className="size-6" />
@@ -286,6 +345,11 @@ const skeleton = Array.from({length:2})
             </div>
           </div>
         ))}
+      <UserOrderInfo
+        proceedToCheckout={proceedToCheckout}
+        getInfo={getInfo}
+        setGetInfo={setGetInfo}
+      />
     </main>
   );
 }

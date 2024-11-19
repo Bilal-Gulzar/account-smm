@@ -13,10 +13,12 @@ import { BiSolidHeart } from "react-icons/bi";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { useAppContext } from "@/app/contextApi/Accoutsmm";
 import SkeletonForProductPage from "@/app/component/skeletonForProductPage";
-
+import UserOrderInfo from "@/app/component/UserOrderInfo";
+import toast from "react-hot-toast";
 
 function AccountPage({id}) {
      const [checkbox, setCheckbox] = useState(false);
+     const [allowed, setAllowed] = useState(false);
      const [desc, setDesc] = useState(true);
      const [secure, setSecure] = useState(true);
      const [data, setData] = useState("");
@@ -24,8 +26,10 @@ function AccountPage({id}) {
      const [qty, setQty] = useState(1);
      const [relatedProduct, setRelatedProduct] = useState([]);
      const [isloading, setIsloading] = useState(true);
+    const [getInfo, setGetInfo] = useState(false);
+    const [buttonDisable, setButtonDisable] = useState(false);
 
-     const { addToWishlist, removeFromWishlist, wishlist, setCart, AddTOCart } =
+     const { shoppingCart, addToWishlist, removeFromWishlist, wishlist, setCart, AddTOCart,ClearCart } =
        useAppContext();
      const isInWishlist = data && data._id ? wishlist.some(
        (wishItem) => wishItem._id === data._id
@@ -88,6 +92,28 @@ function AccountPage({id}) {
        setCart(true);
      }
 
+
+ function handleBuyNow() {
+   let obj;
+   if (data.accountTypes?.length > 0) {
+     obj = {
+       ...data,
+       qty,
+       accountTypes: selectOpt,
+       basePrice: selectOpt?.extraPrice,
+     };
+   } else {
+    
+     const { accountTypes, ...dataWithoutAccountTypes } = data; // Destructure to omit accountTypes
+     obj = {
+       ...dataWithoutAccountTypes,
+       qty,
+     };
+   }
+
+   AddTOCart(obj);
+ }
+
      const increaseQty = () => {
        setQty(qty + 1);
      };
@@ -105,6 +131,57 @@ function AccountPage({id}) {
      }
 
 
+function BuyNow(){
+ClearCart()
+setGetInfo(true)
+handleBuyNow()
+
+}
+
+ useEffect(() => {
+   const timer = setTimeout(() => {
+     setAllowed(false); // Hide element after 5 seconds
+   }, 5000);
+
+   return () => clearTimeout(timer); // Cleanup the timer
+ }, [allowed]);
+
+ const payment = async () => {
+   if (!checkbox) {
+     return setAllowed(true);
+   }
+   BuyNow()
+ };
+
+
+const proceedToCheckout = async(email,name, address,postal,city,phone,country) => {
+  setButtonDisable(true)
+ const data = {shoppingCart ,email,name ,address, postal, city, phone, country };
+   let promise = new Promise(async (resolve, reject) => {
+     let res = await fetch("/api/checkout/payment", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(data),
+     });
+     setButtonDisable(false)
+     if (res.ok) {
+       window.location = await res.json();
+       resolve();
+     } else {
+       reject();
+     }
+   });
+ await toast.promise(promise,{
+loading: 'Preparing your order...',
+success: 'Redirecting to payment... ',
+error: 'something went wrong... Please try again Later'
+ })
+
+ };
+
+
   return (
     <div>
       <section className="px-4 mt-12 pb-52">
@@ -113,25 +190,25 @@ function AccountPage({id}) {
         ) : (
           <>
             <main className="grid md:grid-cols-2  gap-5 lg:gap-0 xl:gap-7 lg:container lg:mx-auto">
-              <div className="relative">
+              <div className="relative  w-full h-[400px] sm:w-[85%] md:h-[350px] lg:h-[400px] xl:h-[500px] 2xl:h-[600px]  lg:w-[80%] mx-auto bg-gray-100 ">
                 {data.img && (
                   <>
                     <Image
                       src={data.img}
-                      width={400}
-                      height={400}
-                      className="md:block bg-gray-100 hidden xl:w-full xl:h-auto  h-auto mx-auto "
+                      fill
+                      sizes="(min-width: 808px) 50vw, 100vw"
+                      className=" bg-gray-100 mx-auto "
                       alt={data.accountName}
                       priority
                     />
-                    <Image
+                    {/* <Image
                       src={data.img}
                       width={230}
                       height={300}
                       className="md:hidden w-full h-full"
                       alt={data.accountName}
                       priority
-                    />
+                    /> */}
                   </>
                 )}
               </div>
@@ -210,15 +287,19 @@ function AccountPage({id}) {
                   </div>
                 </div>
                 <div className="">
-                  <button className="bg-black  py-2.5 w-full sm:w-auto sm:px-48 md:px-28 text-white rounded-lg font-medium">
+                  <button
+                    disabled={buttonDisable}
+                    onClick={payment}
+                    className="bg-black disabled:bg-[#acabab]  py-2.5 w-full sm:w-auto sm:px-48 md:px-28 text-white rounded-lg font-medium"
+                  >
                     BUT IT NOW
                   </button>
                 </div>
                 <div className="flex gap-2 mt-2">
                   <input
                     type="checkbox"
-                    value={checkbox}
-                    onClick={(e) => setCheckbox(e.target.value)}
+                    checked={checkbox}
+                    onChange={() => setCheckbox(!checkbox)}
                     className="accent-black"
                   />
                   <p className=" text-gray-600 text-sm">
@@ -320,7 +401,7 @@ function AccountPage({id}) {
         )}
         <div
           className={`bg-[#e0b252] fixed left-0 right-0 flex items-center  text-white bottom-0   text-sm tracking-wide px-8 z-50 py-5 gap-3 ${
-            checkbox ? "" : "hidden"
+            allowed ? "" : "hidden"
           } transform translate-y-full animate-slide-up`}
         >
           <div className="absolute h-[3.5px] bg-[#a8853d] top-0 animate-loading-line"></div>
@@ -331,13 +412,18 @@ function AccountPage({id}) {
             You must agree with terms and conditions of the sales to check out.
           </p>
           <div
-            onClick={() => setCheckbox(false)}
+            onClick={() => setAllowed(false)}
             className="cursor-pointer absolute right-0  w-16 h-full flex justify-center items-center bg-[#c9a04a]"
           >
             <IoMdClose className="size-6" />
           </div>
         </div>
       </section>
+      <UserOrderInfo
+        proceedToCheckout={proceedToCheckout}
+        getInfo={getInfo}
+        setGetInfo={setGetInfo}
+      />
     </div>
   );
 }

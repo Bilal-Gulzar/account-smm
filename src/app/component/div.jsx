@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useAppContext } from "../contextApi/Accoutsmm";
-import { usePathname } from "next/navigation";
+import { usePathname} from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import ShowToAdmin from "./showToAdmin";
@@ -56,7 +56,10 @@ export default function Div() {
       }
 
       return () => {
+      if (scrollableContentRef.current) {
+
         enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+      }
       };
     }, [showdiv]);
 

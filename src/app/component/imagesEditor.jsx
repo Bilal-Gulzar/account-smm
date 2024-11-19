@@ -13,17 +13,17 @@ export default function ImagesEditor({editProfile,setEditProfile,data,setProfile
      const [condition, setCondition] = useState(false);
 
      useEffect(()=>{
-     setImg(data?.image)
+     setImg(data?.image || '')
      if(data.name){
-     setName(data?.name)
+     setName(data?.name || '')
     setCondition(false);
 
      }else{
-      setName(data.image)
+      setName(data.image || '')
       setCondition(true)
 
      }
-     setId(data?._id)
+     setId(data?._id || '')
 
      },[data])
      async function updateImage(evt) {

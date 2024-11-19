@@ -96,7 +96,7 @@ export default function Profile(){
   const addUserInfo = async (evt) => {
     evt.preventDefault();
     const length = `${phone}`.length;
-    if (length < 11 || length > 11) return setCheckNum(true);
+    if (length < 11 || length > 11) return setCheckNum(true),router.push("###");
     setCheckNum(false);
     setSaving(true);
     const data = {
@@ -172,13 +172,13 @@ export default function Profile(){
      }
 
      return () => {
+        if (scrollableContentRef.current) {
        enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+     }
      };
    }, [editInfo,editProfile]);
   return (
-    <main
-      className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen "
-    >
+    <main className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen ">
       <div>
         <Accountsetitngnavbar />
         {isloading ? (
@@ -191,9 +191,9 @@ export default function Profile(){
               <div className="bg-white px-7 py-7 rounded-md flex flex-col gap-3 ">
                 <p className="flex gap-5 items-center text-sm text-gray-500 ">
                   {userInfo.name ? (
-                    <div className="text-sm text-black font-medium break-all ">
+                    <span  className="text-sm text-black font-medium break-all ">
                       {userInfo.name}
-                    </div>
+                    </span>
                   ) : (
                     "Edit Name"
                   )}
@@ -241,7 +241,7 @@ export default function Profile(){
           className={`fixed right-0  overflow-hidden ${
             editInfo ? "flex" : " translate-y-full "
           } justify-center left-0 top-0  backdrop-blur-sm bg-[#666666]/80 w-full h-full  items-end md:items-center z-50`}
-          >
+        >
           <div
             className={`${
               editInfo ? "translate-y-0" : "translate-y-full"
@@ -252,6 +252,7 @@ export default function Profile(){
               <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-medium">Edit address</h1>
                 <div
+                  id="##"
                   onClick={() => {
                     setEditInfo(false), setCheckNum(false);
                   }}
@@ -380,7 +381,7 @@ export default function Profile(){
                   <div className="relative">
                     <input
                       id="postalcode"
-                      type="text"
+                      type="number"
                       autoComplete="off"
                       placeholder=""
                       required

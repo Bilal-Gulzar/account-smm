@@ -203,9 +203,9 @@ export default function Terms() {
             <ul className="mt-2 px-3 lg:px-0 font-light text-sm">
               <li className="text-sm font-light">
                 <span className="font-medium"> &bull; No Refunds:</span>
-                &nbsp; Due to the nature of digital products, all sales are final
-                and no refunds will be provided once an account is delivered.
-                Please see our{" "}
+                &nbsp; Due to the nature of digital products, all sales are
+                final and no refunds will be provided once an account is
+                delivered. Please see our{" "}
                 <Link
                   href="/exchange&return"
                   className="text-[#3b82f6] font-normal"
@@ -371,9 +371,9 @@ export default function Terms() {
             <ul className="mt-2 px-3 lg:px-0 font-light text-sm">
               <li className="text-sm font-light">
                 <span className="font-medium"> &bull; Email:</span>{" "}
-                <Link href="#" className="text-[#3b82f6] font-normal">
+                <Link href="mailto:Egzk.zesh@gmail.com" className="text-[#3b82f6] font-normal">
                   {" "}
-                  support@accountsmm.com
+                  Egzk.Zesh@gmail.com
                 </Link>
               </li>
               <li className="text-sm font-light">

@@ -5,7 +5,6 @@ import Addtocart from './addtocart';
 import AddtoWishlist from './addtoWishlist';
 
 export default function Images({ relatedProduct }) {
-  console.log(relatedProduct);
   return (
     <section>
       <div className="gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -14,15 +13,16 @@ export default function Images({ relatedProduct }) {
             <div key={v._id}>
               <div className="hover:shadow-lg w-auto mt-2 flex flex-col">
                 <Link href={`/account/${v._id}`}>
-                  <div className="w-full bg-gray-100 relative">
-                    <Image
-                      src={v.img}
-                      width={900}
-                      height={900}
-                      alt={v.accountName}
-                      quality={100}
-                      priority
-                    />
+                  <div className="relative h-48 sm:h-64 2xl:h-[300px] bg-gray-100">
+                    {v.img && (
+                      <Image
+                        src={v.img}
+                        fill
+                        sizes="(min-width: 808px) 50vw, 100vw"
+                        alt={v.accountName}
+                        priority
+                      />
+                    )}
                   </div>
                 </Link>
                 <div className="mt-3 ml-2 flex items-center justify-between">

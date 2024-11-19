@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import localFont from "next/font/local";
 import {Montserrat} from "next/font/google"
 import LogOut from "./component/logout";
+
 const Mont = Montserrat({ subsets: ["latin"] });
 
 const geistSans = localFont({
@@ -65,7 +66,7 @@ export default function RootLayout({ children }) {
               <LogOut />
               {children}
             </div>
-             <div>
+            <div>
               <Footer />
             </div>
           </div>

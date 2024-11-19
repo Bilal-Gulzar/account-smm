@@ -118,7 +118,7 @@ const skeleton = Array.from({length:3})
                             fill
                             className="rounded"
                             sizes="100vw"
-                            alt={v.name}
+                            alt='homePageImage'
                             priority
                           />
                         </div>

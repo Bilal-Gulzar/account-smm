@@ -73,7 +73,9 @@ setQuery('')
     }
 
     return () => {
+      if (scrollableContentRef.current) {
       enableBodyScroll(scrollableContentRef.current); // Cleanup on unmount
+    };
     };
   }, [search]);
 
