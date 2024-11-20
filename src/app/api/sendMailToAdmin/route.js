@@ -51,10 +51,9 @@ try{
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <title>New Order Received</title>
   </head>
-  <body style="font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+  <body style="font-family: sans-serif, Arial; margin: 0; padding: 0; background-color: #f4f4f4;">
     <div style="width: 100%; background-color: #ffffff; margin: 20px auto; max-width: 600px; border-radius: 8px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); padding: 20px;">
       <div style="background-color: #6c63ff; color: #fff; text-align: center; padding: 20px; border-radius: 8px 8px 0 0;">
         <h1 style="margin: 0; font-size: 24px; font-weight: 600;">New Order Received</h1>

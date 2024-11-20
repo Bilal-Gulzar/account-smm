@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import { RiArrowRightCircleLine } from "react-icons/ri";
 import Accountsetitngnavbar from "@/app/component/accountsetitngnavbar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAppContext } from "@/app/contextApi/Accoutsmm";
 var jwt = require("jsonwebtoken");
 
 export default function EditAccount() {
+  const { showdiv } = useAppContext();
   const router = useRouter();
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -31,7 +33,7 @@ export default function EditAccount() {
       .then((resp) => resp.json())
       .then((result) => {
         if(result && result.length> 0 ){
-        setData(result.reverse());
+        setData(result.reverse() || []);
       setIsLoading(false);
       }
       });
@@ -131,7 +133,7 @@ export default function EditAccount() {
                             </div>
                             <div className="w-full p-2">
                               <Link href={`/admin/accountPanel/${x._id}`}>
-                                <button className="bg-black w-full tracking-wider py-2 rounded-md text-white font-medium text-xs sm:text-sm">
+                                <button disabled={showdiv} className="bg-black w-full tracking-wider py-2 rounded-md text-white font-medium text-xs sm:text-sm">
                                   Update Account
                                 </button>
                               </Link>

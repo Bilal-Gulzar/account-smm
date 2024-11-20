@@ -35,7 +35,7 @@ let skeleton = Array.from({length:4})
 
   return (
     <main className="2xl:container 2xl:mx-auto mb-28">
-      {getData && getData.length > 0  ?
+      {getData && getData?.length > 0  ?
          getData.map((v, index) => (
           <div key={index} className=" relative mt-9 p-3">
             <h1 className="text-center text-2xl sm:text-4xl font-medium">

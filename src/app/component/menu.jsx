@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { FiPlus } from "react-icons/fi";
 import Link from 'next/link';
 import { IoCloseOutline } from "react-icons/io5";
+import ScrollLock from "react-scrolllock";
+
 export default function Menu({path}) {
 const {setMenu,menu} = path
 const [accountName,setAccountName] = useState([])
@@ -52,7 +54,7 @@ setMenu(false)
         <div>
           <div className="font-medium break-all">
             {accountName?.length > 0 &&
-              accountName.map((c,index) => (
+              accountName.map((c, index) => (
                 <Link key={c._id} href={routeMap[index]}>
                   <div className=" flex items-center tracking-wider justify-between cursor-pointer px-5 py-3.5 border-y border-gray-200">
                     {c.menu}
@@ -64,6 +66,7 @@ setMenu(false)
               ))}
           </div>
         </div>
+        {menu && <ScrollLock />}
       </section>
     </>
   );

@@ -14,7 +14,6 @@ import { IoMdClose } from "react-icons/io";
 import { ImSpinner8 } from "react-icons/im";
 import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
 import { useEffect,useRef } from "react";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 export default function Cart() {
 const router = useRouter()
@@ -27,6 +26,8 @@ const router = useRouter()
     RemoveFromCart,
     DecreaseQuantity,
   } = useAppContext();
+  
+const reversedCart = [...(shoppingCart || [])].reverse();
   // const [buttonDisable, setButtonDisable] = useState(false);
   const [checkbox, setCheckbox] = useState(false);
   const [allowed, setAllowed] = useState(false);
@@ -132,7 +133,7 @@ const router = useRouter()
           {shoppingCart.length > 0 && (
             <div>
               <div className="mx-4 pt-5 height pb-80 flex flex-col gap-2 hide-scrollbar bg-white overflow-y-auto overflow-x-hidden ">
-                {shoppingCart.map((v) => (
+                {reversedCart.map((v) => (
                   <div key={v._id} className="flex gap-4">
                     <div className="min-w-28 min-h-36 bg-gray-100 relative">
                       <Image

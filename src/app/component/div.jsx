@@ -160,7 +160,7 @@ export default function Div() {
               </p>
             </Link>
             <p
-              onClick={Logout}
+              onClick={()=>{Logout(),setShowdiv(false)}}
               className="hover:bg-[#f5f5f5] cursor-pointer p-2.5"
             >
               Log out
@@ -280,7 +280,7 @@ export default function Div() {
                 Settings
               </p>
             </Link>
-            <p onClick={Logout} className="hover:bg-[#f5f5f5] p-2.5">
+            <p onClick={()=>{Logout(),setShowdiv(false)}} className="hover:bg-[#f5f5f5] p-2.5">
               Log out
             </p>
             {admin && (

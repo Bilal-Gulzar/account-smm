@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 export default function Cart() {
 const { shoppingCart, subtotal, AddTOCart, DecreaseQuantity,RemoveFromCart } = useAppContext();
 const router = useRouter()
+const reversedCart = [...(shoppingCart || [])].reverse();
  const handleCart = (v) => {
    const fixQty = { ...v, qty: 1 }
    AddTOCart(fixQty);
@@ -139,7 +140,7 @@ const skeleton = Array.from({length:2})
               <div>TOTAL</div>
             </div>
           </div>
-          {shoppingCart.map((v, index) => (
+          {reversedCart.map((v, index) => (
             <div key={index} className="grid lg:grid-cols-2  mt-10 lg:mt-3">
               <div className="font-medium text-sm  border-b pb-3 md:pb-0 lg:py-7 md:border lg:border-0 lg:border-t border-gray-500   flex md:items-center gap-3">
                 <div className="w-32 h-40  relative bg-gray-100">

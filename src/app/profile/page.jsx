@@ -9,10 +9,11 @@ import { useRouter } from 'next/navigation';
 import { MdOutlineErrorOutline } from "react-icons/md";
 import SkeletonForProfilePage from '../component/skeletonForProfilePage';
 import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
-
+import { useAppContext } from "../contextApi/Accoutsmm";
 var jwt = require("jsonwebtoken");
 
 export default function Profile(){
+  const { showdiv} = useAppContext();
   const router = useRouter();
   const [editInfo, setEditInfo] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
@@ -58,7 +59,7 @@ export default function Profile(){
       fetch("/api/profile?id=" + id)
         .then((res) => res.json())
         .then((data) => {
-          if (Object.keys(data).length > 5) {
+          if (data && Object.keys(data).length > 5) {
             const fullName =
               (data.firstName || "").trim() +
               " " +
@@ -72,17 +73,17 @@ export default function Profile(){
               country: data?.country || "",
               postal: data?.postalCode || "",
             });
+            setEmail(data?.email || "");
+            setFName(data?.firstName || "");
+            setLName(data?.lastName || "");
+            setPhone(data?.number || "");
+            setCity(data?.city || "");
+            setCountry(data?.country || "");
+            setPostal(data?.postalCode || "");
+            setAddress(data?.address || "");
+            
+            setIsloading(false);
           }
-          setEmail(data?.email);
-          setFName(data?.firstName);
-          setLName(data?.lastName);
-          setPhone(data?.number);
-          setCity(data?.city);
-          setCountry(data?.country);
-          setPostal(data?.postalCode);
-          setAddress(data?.address);
-
-          setIsloading(false);
         });
     } else {
       router.push("/login");
@@ -191,18 +192,19 @@ export default function Profile(){
               <div className="bg-white px-7 py-7 rounded-md flex flex-col gap-3 ">
                 <p className="flex gap-5 items-center text-sm text-gray-500 ">
                   {userInfo.name ? (
-                    <span  className="text-sm text-black font-medium break-all ">
+                    <span className="text-sm text-black font-medium break-all ">
                       {userInfo.name}
                     </span>
                   ) : (
                     "Edit Name"
                   )}
-                  <span
+                  <button
+                    disabled={showdiv}
                     onClick={() => setEditProfile(true)}
                     className="cursor-pointer"
                   >
                     <GrEdit className="size-3.5" />
-                  </span>
+                  </button>
                 </p>
                 <div className="text-sm">
                   <p className="text-gray-500">Email</p>
@@ -215,12 +217,13 @@ export default function Profile(){
                 <div className="hover:bg-[#f5f5f5] rounded-md p-4">
                   <p className="text-gray-500  text-sm flex justify-between items-center">
                     Default Address
-                    <span
+                    <button
+                      disabled={showdiv}
                       onClick={() => setEditInfo(true)}
                       className="cursor-pointer"
                     >
                       <GrEdit className="size-3.5" />
-                    </span>
+                    </button>
                   </p>
                   <div className="mt-3 flex flex-col gap-0.5">
                     <div className="text-sm">{userInfo.name}</div>

@@ -15,7 +15,7 @@ import { Toaster } from "@/components/ui/toaster";
 export default function Orders() {
 const router = useRouter()
 const { toast } = useToast();
-const { AddTOCart, ClearCart } = useAppContext();
+const { AddTOCart, ClearCart, showdiv } = useAppContext();
 const [isloading,setIsloading] = useState(true)
 const [orders,setorders] = useState([])
 useEffect(()=>{
@@ -34,8 +34,8 @@ fetch('/api/orders?session='+jwt)
 .then((data)=>{
 if(data && data.length > 0 ){
 setorders(data.reverse() || [])
-}
 setIsloading(false); 
+}
 if (typeof window !== "undefined") {
   if (window.location.href.includes("canceled=1")) {
     toast({
@@ -69,12 +69,10 @@ router.push('/cart')
 }
 }
 
-
-
-
   return (
-    <main className="bg-[#f5f5f5] min-h-screen flex flex-col justify-between">
+    <main className="bg-[#f5f5f5] flex flex-col justify-between overflow-hidden min-h-screen ">
       <div>
+        <Toaster />
         <Accountsetitngnavbar />
         <div className=" lg:max-w-[1000px] xl:max-w-[1100px]  mx-5 lg:mx-auto sm:mx-5">
           <h1 className="text-xl mt-8 font-medium">Orders</h1>
@@ -148,6 +146,7 @@ router.push('/cart')
                       </div>
                       <div className="w-full">
                         <button
+                          disabled={showdiv}
                           onClick={() => buyAgain(v)}
                           className="w-full font-medium text-gray-300 text-sm tracking-wider hover:text-gray-400 px-8 py-4 border-gray-300 rounded-md  flex justify-center items-center border-[1.5px] "
                         >
@@ -187,7 +186,7 @@ router.push('/cart')
           )}
         </div>
       </div>
-      <div className="border-t lg:container lg:mx-auto px-5  text-xs flex lg:flex-row flex-col items-center  underline gap-7 py-8 w-full  border-gray-300 mt-14">
+      <div className="border-t lg:max-w-[1085px] lg:mx-auto px-5  text-xs flex lg:flex-row flex-col items-center  underline gap-7 py-8   w-full  border-gray-300 mt-14">
         <Link href="/exchange&return">
           <div>Return & Exchange</div>
         </Link>
@@ -198,7 +197,6 @@ router.push('/cart')
           <div>Terms & Condition</div>
         </Link>
       </div>
-      <Toaster />
     </main>
   );
 }

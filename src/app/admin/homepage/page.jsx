@@ -6,9 +6,11 @@ import ImagesEditor from '@/app/component/imagesEditor';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from "next/navigation";
+import { useAppContext } from '@/app/contextApi/Accoutsmm';
 var jwt = require("jsonwebtoken");
 
 function HomePage() {
+  const { showdiv } = useAppContext();
   const router = useRouter();
  const [whatImg,setWhatImg] = useState([])
 const [editProfile, setEditProfile] = useState(false);
@@ -118,11 +120,12 @@ const skeleton = Array.from({length:3})
                             fill
                             className="rounded"
                             sizes="100vw"
-                            alt='homePageImage'
+                            alt="homePageImage"
                             priority
                           />
                         </div>
                         <button
+                          disabled={showdiv}
                           onClick={() => {
                             setEditProfile(true), setData(v);
                           }}
@@ -159,6 +162,7 @@ const skeleton = Array.from({length:3})
                           />
                         </div>
                         <button
+                          disabled={showdiv}
                           onClick={() => {
                             setEditProfile(true), setData(v);
                           }}

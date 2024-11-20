@@ -12,6 +12,7 @@ import SkeletonLoading from '../component/skeleton';
 export default function WishList() {
   const { wishlist, removeFromWishlist } = useAppContext();
   const [isloading,setisloading] = useState(true)
+  const reversedwishlist = [...(wishlist || [])].reverse();
  useEffect(()=>{
 setTimeout(()=>{
 setisloading(false)
@@ -46,21 +47,22 @@ setisloading(false)
           className="lg:container grid grid-cols-2 md:grid-cols-3 md lg:grid-cols-4 gap-3 
       hide-scrollbar overflow-x-auto mx-auto px-5 lg:px-1 xl:px-2 mt-5"
         >
-          {wishlist.map((v, index) => (
+          {reversedwishlist.map((v, index) => (
             <div
               key={index}
               className="hover:shadow-xl  w-auto mt-2 flex flex-col"
             >
               <Link href={`/account/${v._id}`}>
                 <div className="relative h-48 sm:h-64 2xl:h-[300px] bg-gray-100">
-                  {v.img &&
-                  <Image
-                    src={v.img}
-                    fill
-                    sizes="(min-width: 808px) 50vw, 100vw"
-                    alt={v.accountName}
-                    priority
-                  />}
+                  {v.img && (
+                    <Image
+                      src={v.img}
+                      fill
+                      sizes="(min-width: 808px) 50vw, 100vw"
+                      alt={v.accountName}
+                      priority
+                    />
+                  )}
                 </div>
               </Link>
               <div className="mt-3 ml-2 flex items-center justify-between">

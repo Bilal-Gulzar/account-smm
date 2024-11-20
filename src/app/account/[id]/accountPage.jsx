@@ -47,10 +47,10 @@ function AccountPage({id}) {
        fetch(`/api/Accounts?id=`+id)
          .then((res) => res.json())
          .then((obj) => {
-           if (obj) {
-             setData(obj.getAccount);
-             setValue(obj.getAccount);
-             setRelatedProduct(obj.relatedProducts);
+           if (obj && Object.keys(obj).length > 0) {
+             setData(obj.getAccount || '');
+             setValue(obj.getAccount  || null);
+             setRelatedProduct(obj.relatedProducts || []);
              setIsloading(false);
            }
          });
@@ -198,7 +198,7 @@ error: 'something went wrong... Please try again Later'
                       fill
                       sizes="(min-width: 808px) 50vw, 100vw"
                       className=" bg-gray-100 mx-auto "
-                      alt={data.accountName}
+                      alt={data?.accountName}
                       priority
                     />
                     {/* <Image
@@ -221,7 +221,7 @@ error: 'something went wrong... Please try again Later'
                     </p>
                   )}
                   {!data.accountTypes?.length && (
-                    <p className="font-medium text-lg">${data.basePrice}</p>
+                    <p className="font-medium text-lg">${data?.basePrice}</p>
                   )}
                 </div>
                 <p className="text-gray-500   text-sm  ">

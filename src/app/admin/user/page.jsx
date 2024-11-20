@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { InfinitySpin } from "react-loader-spinner";
 import UserPage from '@/app/component/updateUser';
+import { useAppContext } from '@/app/contextApi/Accoutsmm';
 var jwt = require("jsonwebtoken");
 
 
@@ -13,6 +14,7 @@ var jwt = require("jsonwebtoken");
   
 
 const User = () => {
+  const { showdiv } = useAppContext();
   const router = useRouter();
   const [emails, setEmails] = useState([]);
   const [userId, setUserId] = useState('');
@@ -90,6 +92,7 @@ function Next_Auth() {
                     </p>
 
                     <button
+                      disabled={showdiv}
                       onClick={() => handleUpdate(v._id)}
                       className="bg-gray-100 border-gray-400 border text-gray-900 min-w-[53px] py-1 rounded-md  flex justify-center items-center font-bold  outline-none"
                     >

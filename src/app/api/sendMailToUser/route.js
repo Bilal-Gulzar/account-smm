@@ -38,10 +38,9 @@ try{
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <title>Order Confirmed</title>
   </head>
-  <body style="font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #6c63ff, #5a54d1);">
+  <body style="font-family:sans-serif, Arial; margin: 0; padding: 0; background: linear-gradient(135deg, #6c63ff, #5a54d1);">
     <div style="width: 100%; max-width: 700px; margin: 40px auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); overflow: hidden; font-size: 16px;">
       <div style="background-color: #6c63ff; color: #fff; text-align: center; padding: 50px 20px; border-bottom: 5px solid #fff;">
         <h1 style="font-size: 32px; font-weight: 700; margin: 0;">Order Confirmed!</h1>

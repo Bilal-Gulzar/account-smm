@@ -20,7 +20,7 @@ function OrderPage({params}) {
   const {id} = params
   const router = useRouter();
   const { toast } = useToast();
-  const { AddTOCart, ClearCart } = useAppContext();
+  const { AddTOCart, ClearCart,showdiv} = useAppContext();
   const [orderSummary, setOrderSummary] = useState(false);
   const [isloading, setIsloading] = useState(true);
   const [orderDetail,setOrderDetail] = useState('') 
@@ -38,12 +38,11 @@ fetch(`/api/orderPage?id=${id}`)
 if(oop && Object.keys(oop).length > 0){
 
 setOrderDetail(oop || '')
-setDay(oop.date.day || '')
-setMonth(oop.date.month || '')
-setYear(oop.date.year || '')
-}
-
+setDay(oop?.date?.day || '')
+setMonth(oop?.date?.month || '')
+setYear(oop?.date?.year || '')
 setIsloading(false)
+}
 if (typeof window !== "undefined") {
   if (window.location.href.includes("clear-cart=1")) {
     ClearCart();
@@ -90,6 +89,7 @@ const buyAgain =  async () => {
   return (
     <main className="bg-[#f5f5f5] flex flex-col justify-between relative min-h-screen">
       <div>
+        <Toaster />
         <Accountsetitngnavbar />
         <div className="lg:max-w-[1000px] pb-28 xl:max-w-[1100px] mt-8 mx-5 lg:mx-auto ">
           {isloading ? (
@@ -207,6 +207,7 @@ const buyAgain =  async () => {
                   </div>
                 </div>
                 <button
+                  disabled={showdiv}
                   onClick={buyAgain}
                   className='"w-full font-medium text-gray-300 text-sm tracking-wider hover:text-gray-400 p-3  bg-white border-gray-300 rounded-md  flex justify-center items-center border-[1.5px] '
                 >
@@ -410,7 +411,6 @@ const buyAgain =  async () => {
           <div>Terms & Condition</div>
         </Link>
       </div>
-      <Toaster />
     </main>
   );
 }
