@@ -39,7 +39,7 @@ export default function Div() {
           setEmail(data?.email);
           setLetter(name.trim() || "");
           const fullName =
-            (data.firstName || "").trim() + " " + (data.lastName || "").trim();
+            (data?.firstName || "").trim() + " " + (data?.lastName || "").trim();
           setFullName(fullName.trim() || "");
         });
     }

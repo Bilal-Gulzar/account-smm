@@ -18,11 +18,15 @@ if (findUser) {
 }
 
  if (admin) {
-   return Response.json(await order.find({}));
+  const allorders = await order.find({});
+  //  return Response.json(await order.find({}));
+   return Response.json({ success: true, allorders });
+
  }
 
  if (findUser) {
-   return Response.json(await order.find({ UserEmail: findUser.email }));
+ const allorders  =  await order.find({ UserEmail: findUser.email})
+   return Response.json({success:true,allorders});
  }
 
 }catch(error){

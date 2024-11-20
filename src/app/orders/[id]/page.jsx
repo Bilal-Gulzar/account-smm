@@ -35,13 +35,12 @@ if(localStorage.getItem("token")){
 fetch(`/api/orderPage?id=${id}`)
 .then((res)=>res.json())
 .then((oop)=>{
-if(oop && Object.keys(oop).length > 0){
-
-setOrderDetail(oop || '')
-setDay(oop?.date?.day || '')
-setMonth(oop?.date?.month || '')
-setYear(oop?.date?.year || '')
-setIsloading(false)
+if(oop.success){
+ setOrderDetail(oop.Order || "");
+ setDay(oop.Order?.date?.day || "");
+ setMonth(oop.Order?.date?.month || "");
+ setYear(oop.Order?.date?.year || "");
+ setIsloading(false);
 }
 if (typeof window !== "undefined") {
   if (window.location.href.includes("clear-cart=1")) {

@@ -32,10 +32,10 @@ if(jwt){
 fetch('/api/orders?session='+jwt)
 .then((res)=> res.json())
 .then((data)=>{
-if(data && data.length > 0 ){
-setorders(data.reverse() || [])
-}
+if(data.success){
+setorders(data.allorders?.reverse() || [])
 setIsloading(false); 
+}
 if (typeof window !== "undefined") {
   if (window.location.href.includes("canceled=1")) {
     toast({
@@ -47,7 +47,6 @@ if (typeof window !== "undefined") {
 })
 }
 },[])
-
 const buyAgain  = async (account) => {
   const id = account._id
   const res  = await fetch('/api/validateOrder?orderID='+id)
