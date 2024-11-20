@@ -30,7 +30,7 @@ export const metadata = {
   },
   description: "Buy Exchanges & Buy Payment Gateways verified | Accountsmm",
   other: {
-    cryptomus: "7544e10e", // Adding custom meta tag here
+    'google-site-verification': 'covt8FrNX_PW_SdQkQ0JCeGwYRlEuPKxtIUY4YS_gYo',
   },
   keywords: [
     "verified accounts",
