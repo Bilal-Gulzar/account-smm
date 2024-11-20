@@ -34,8 +34,8 @@ fetch('/api/orders?session='+jwt)
 .then((data)=>{
 if(data && data.length > 0 ){
 setorders(data.reverse() || [])
-setIsloading(false); 
 }
+setIsloading(false); 
 if (typeof window !== "undefined") {
   if (window.location.href.includes("canceled=1")) {
     toast({
