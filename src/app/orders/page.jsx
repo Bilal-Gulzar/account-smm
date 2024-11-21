@@ -42,9 +42,7 @@ if (typeof window !== "undefined") {
       title: "Order canceled.",
       description: "Your order is canceled - we hope to serve you again soon!",
     });
-    setTimeout(() => {
       localStorage.removeItem("flag");
-    }, 5000);
   }
 }
 })

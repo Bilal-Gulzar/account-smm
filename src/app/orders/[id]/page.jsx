@@ -50,9 +50,7 @@ if (typeof window !== "undefined") {
       description:
         "Your payment was successful, and your order has been placed.",
     });
-     setTimeout(() => {
        localStorage.removeItem("flag");
-     }, 5000);
   }
 }
 })
