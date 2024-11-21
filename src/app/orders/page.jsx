@@ -37,11 +37,14 @@ setorders(data.allorders?.reverse() || [])
 setIsloading(false); 
 }
 if (typeof window !== "undefined") {
-  if (window.location.href.includes("canceled=1")) {
+  if (window.location.href.includes("canceled=1") && localStorage.getItem("flag") === "true") {
     toast({
       title: "Order canceled.",
       description: "Your order is canceled - we hope to serve you again soon!",
     });
+    setTimeout(() => {
+      localStorage.removeItem("flag");
+    }, 5000);
   }
 }
 })

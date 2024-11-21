@@ -156,6 +156,7 @@ handleBuyNow()
 
 const proceedToCheckout = async(email,name, address,postal,city,phone,country) => {
   setButtonDisable(true)
+  localStorage.setItem("flag", "true");
  const data = {shoppingCart ,email,name ,address, postal, city, phone, country };
    let promise = new Promise(async (resolve, reject) => {
      let res = await fetch("/api/checkout/payment", {

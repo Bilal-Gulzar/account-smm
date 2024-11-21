@@ -43,13 +43,16 @@ if(oop.success){
  setIsloading(false);
 }
 if (typeof window !== "undefined") {
-  if (window.location.href.includes("clear-cart=1")) {
+  if (window.location.href.includes("clear-cart=1") && localStorage.getItem("flag") === "true") {
     ClearCart();
     toast({
       title: "Thank you for order.",
       description:
         "Your payment was successful, and your order has been placed.",
     });
+     setTimeout(() => {
+       localStorage.removeItem("flag");
+     }, 5000);
   }
 }
 })
